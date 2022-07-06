@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\FIDOController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/login', [FIDOController::class, 'loginpage']);
+Route::post('/login', [FIDOController::class, 'login']);
+Route::get('/register', [FIDOController::class, 'registerpage']);
+Route::post('/register', [FIDOController::class, 'register']);
