@@ -8,7 +8,7 @@ class FIDOController extends Controller
 {
     public function loginpage()
     {
-
+        return view('login');
     }
 
     public function login(Request $req)
@@ -26,5 +26,5 @@ class FIDOController extends Controller
 
     }
 
-    
+
 }
