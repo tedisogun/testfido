@@ -18,7 +18,7 @@ class FIDOController extends Controller
 
     public function registerpage()
     {
-
+        return view('register');
     }
 
     public function register(Request $req)
