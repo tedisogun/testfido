@@ -39,7 +39,7 @@
                   </div>
                    
                   <div class="pt-1 mb-4">
-                    <button id="register" class="btn btn-dark btn-lg btn-block" type="submit">REGISTER</button>
+                    <button id="register" onClick="register()" class="btn btn-dark btn-lg btn-block" type="submit">REGISTER</button>
                   </div>
 
                   </form>
@@ -57,5 +57,15 @@
     </div>
   </div>
 </section>
+
+<script>
+
+    function register(e)
+    {
+        e.preventDefault();
+        alert('Hello World');
+    }
+
+</script>
   </body>
 </html>
