@@ -21,3 +21,7 @@ Route::get('/login', [FIDOController::class, 'loginpage']);
 Route::post('/login', [FIDOController::class, 'login']);
 Route::get('/register', [FIDOController::class, 'registerpage']);
 Route::post('/register', [FIDOController::class, 'register']);
+
+Route::get('/phpinfo', function(){
+    return view('phpinfo');
+});
