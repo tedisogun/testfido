@@ -19,7 +19,7 @@
               <div class="card-body p-4 p-lg-5 text-black">
 
                 <form id="registerform" action="/register" method="POST">
-                 <input type="hidden" name="_csrf" value="{{ csrf_token() }}" />
+                 <input type="hidden" name="csrf-token" value="{{ csrf_token() }}" />
                     <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-key fa-2x me-3" style="color: #ff6219;"></i>
                     <span class="h1 fw-bold mb-0">TestFIDO Register</span>
