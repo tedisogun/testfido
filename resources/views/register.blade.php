@@ -89,7 +89,7 @@ var publicKey = {
     ],
     'authenticatorSelection' : {
       'authenticatorAttachment' : 'platform',
-      'userVerification' : 'prefered'
+      'userVerification' : 'preferred'
     }
 }
 
