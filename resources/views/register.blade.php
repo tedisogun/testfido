@@ -19,8 +19,8 @@
               <div class="card-body p-4 p-lg-5 text-black">
 
                 <form id="registerform" action="/register" method="POST">
-
-                  <div class="d-flex align-items-center mb-3 pb-1">
+                 <input type="hidden" name="_csrf" value="{{ csrf_token() }}" />
+                    <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-key fa-2x me-3" style="color: #ff6219;"></i>
                     <span class="h1 fw-bold mb-0">TestFIDO Register</span>
                   </div>
@@ -39,7 +39,7 @@
                   </div>
                    
                   <div class="pt-1 mb-4">
-                    <button id="register" onClick="register(event)" class="btn btn-dark btn-lg btn-block" type="submit">REGISTER</button>
+                    <button id="register" onclick="register(event)" class="btn btn-dark btn-lg btn-block" type="submit">REGISTER</button>
                   </div>
 
                   </form>
