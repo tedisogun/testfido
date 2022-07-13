@@ -18,8 +18,8 @@
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
 
-                <form id="registerform" action="/register" method="POST">
-                 <input type="hidden" name="csrf-token" value="{{ csrf_token() }}" />
+             
+               
                     <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-key fa-2x me-3" style="color: #ff6219;"></i>
                     <span class="h1 fw-bold mb-0">TestFIDO Register</span>
@@ -27,8 +27,8 @@
 
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Register dengan FIDO2</h5>
                  <p style="color:red;"> {{ $error ?? '' }}</p>
-                  <form>
-
+                 <form id="registerform" action="/register" method="POST">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                   <div class="form-outline mb-4">
                     <input type="email" name="email" id="email" class="form-control form-control-lg" />
                     <label class="form-label" for="email">Email</label>
@@ -39,7 +39,7 @@
                   </div>
                    
                   <div class="pt-1 mb-4">
-                    <button id="register" onclick="register(event)" class="btn btn-dark btn-lg btn-block" type="submit">REGISTER</button>
+                    <button id="register_main" class="btn btn-dark btn-lg btn-block" type="submit">REGISTER</button>
                   </div>
 
                   </form>
@@ -47,7 +47,7 @@
                   <p class="mb-5 pb-lg-2" style="color: #393f81;">Sudah Punya Akun? <a href="/login"
                       style="color: #393f81;">Login Disini</a></p>
                  
-                </form>
+              
 
               </div>
             </div>
@@ -60,11 +60,51 @@
 
 <script>
 
-    function register(e)
-    {
-        e.preventDefault();
-        alert("hi");
-    }
+// button submit register
+const buttonsubmit = document.getElementById("register_main"); 
+buttonsubmit.addEventListener("click", function(e) {
+  
+var challenge = new Uint8Array(32);
+window.crypto.getRandomValues(challenge);
+
+var userID = 'Kosv9fPtkDoh4Oz7Yq/pVgWHS8HhdlCto5cR0aBoVMw='
+var id = Uint8Array.from(window.atob(userID), c=>c.charCodeAt(0))
+
+var publicKey = {
+    'challenge': challenge,
+
+    'rp': {
+        'name': 'Test FIDO'
+    },
+
+    'user': {
+        'id': id,
+        'name': 'tedi@example.com',
+        'displayName': 'Tedi Sogun'
+    },
+
+    'pubKeyCredParams': [
+        { 'type': 'public-key', 'alg': -7  },
+        { 'type': 'public-key', 'alg': -257 }
+    ]
+}
+
+navigator.credentials.create({ 'publicKey': publicKey })
+    .then((newCredentialInfo) => {
+        console.log('SUCCESS', newCredentialInfo)
+    })
+    .catch((error) => {
+        console.log('FAIL', error)
+    })
+  
+  e.preventDefault(); 
+
+
+
+});
+
+
+
 
 </script>
   </body>
