@@ -88,7 +88,8 @@ var publicKey = {
         { 'type': 'public-key', 'alg': -257 }
     ],
     'authenticatorSelection' : {
-      'authenticatorAttachment' : 'platform'
+      'authenticatorAttachment' : 'platform',
+      'userVerification' : 'prefered'
     }
 }
 
