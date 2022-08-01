@@ -28,7 +28,7 @@
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Register dengan FIDO2</h5>
                  <p style="color:red;"> {{ $error ?? '' }}</p>
                  <form id="registerform" action="/register" method="POST">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                  <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
                   <div class="form-outline mb-4">
                     <input type="email" name="email" id="email" class="form-control form-control-lg" />
                     <label class="form-label" for="email">Email</label>
@@ -58,29 +58,41 @@
   </div>
 </section>
 
+<script src="/js/jquery-3.6.0.min.js">
+
+
+</script>
+
 <script>
 
 // button submit register
 const buttonsubmit = document.getElementById("register_main"); 
 buttonsubmit.addEventListener("click", function(e) {
-  
-var challenge = new Uint8Array(32);
-window.crypto.getRandomValues(challenge);
+  e.preventDefault(); 
+let email = $('#email').val();
+let name = $('#name').val();
+let _token = $('#_token').val();
+if( !( email && name)) {
+          alert('input missing');
+          return
+}
 
-var userID = 'Kosv9fPtkDoh4Oz7Yq/pVgWHS8HhdlCto5cR0aBoVMw='
+
+var challenge = new TextEncoder("utf-8").encode("{{$challenge}}");
+var userID = "{{$user_id}}"
 var id = Uint8Array.from(window.atob(userID), c=>c.charCodeAt(0))
 
 var publicKey = {
     'challenge': challenge,
 
     'rp': {
-        'name': 'Test FIDO'
+        'name': 'TestFIDO'
     },
 
     'user': {
         'id': id,
-        'name': 'tedi@example.com',
-        'displayName': 'Tedi Sogun'
+        'name': email,
+        'displayName': name
     },
 
     'pubKeyCredParams': [
@@ -95,13 +107,42 @@ var publicKey = {
 
 navigator.credentials.create({ 'publicKey': publicKey })
     .then((newCredentialInfo) => {
+
+        // get credential id and input data
+        let credential_id = newCredentialInfo.id;
+
+        console.log(newCredentialInfo)
+
+        return
+        // Send ajax request to server to send credential id and addition data
+        $.ajax({
+          type: 'POST',
+          url : '/register',
+          data : {
+            credential_id : credential_id,
+            email : email,
+            name : name,
+            _token : _token
+          },
+          success : (response)=>{
+              console.log(response);
+              alert('success register');
+          },
+          error : ( error )=>{
+            console.log(error)
+            alert('terjadi kesalahan');
+          }
+        });
+
+
         console.log('SUCCESS', newCredentialInfo)
     })
     .catch((error) => {
         console.log('FAIL', error)
+        alert('Gagal')
     })
   
-  e.preventDefault(); 
+
 
 
 
