@@ -96,20 +96,33 @@ var publicKey = {
     },
 
     'pubKeyCredParams': [
-        { 'type': 'public-key', 'alg': -7  },
+      { 'type': 'public-key', 'alg': -7  },
         { 'type': 'public-key', 'alg': -257 }
     ],
     'authenticatorSelection' : {
       'authenticatorAttachment' : 'platform',
-      'userVerification' : 'preferred'
-    }
+      'userVerification' : 'preferred',
+      'requireResidentKey' : true
+    },
+    'attestation' : 'none'
 }
+
+
 
 navigator.credentials.create({ 'publicKey': publicKey })
     .then((newCredentialInfo) => {
 
+      /**
+       * get important data from registration
+       */
         // get credential id and input data
         let credential_id = newCredentialInfo.id;
+
+        // get attestationObject and make it base64 text
+        let attestationObject = btoa(new Uint8Array(newCredentialInfo.response.attestationObject).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+
+        // get clientDataJson and make it base64 text
+        let clientDataJson = btoa(new Uint8Array(newCredentialInfo.response.clientDataJSON).reduce((data, byte) => data + String.fromCharCode(byte), ''));
 
         console.log(newCredentialInfo)
 
@@ -120,9 +133,12 @@ navigator.credentials.create({ 'publicKey': publicKey })
           url : '/register',
           data : {
             credential_id : credential_id,
+            attestation_object : attestationObject,
+            client_data_json : clientDataJson,
             email : email,
             name : name,
             _token : _token
+
           },
           success : (response)=>{
               console.log(response);
