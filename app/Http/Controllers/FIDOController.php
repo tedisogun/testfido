@@ -111,6 +111,7 @@ class FIDOController extends Controller
         // collectedClientData as string json, use for verifying attestation
         $collectedclientdata = json_encode($collectedclientdata, JSON_UNESCAPED_SLASHES);
 
+        
 
         // Save data to database
         $newuSER = new USER;
