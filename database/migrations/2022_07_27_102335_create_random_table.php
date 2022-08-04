@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('user_id', 64)->nullable();
             // time a random challenge before expired. timecreated + second life cycle
             $table->timestamp('timeout');
-            $table->enum('status', ['active', 'expired']);
             $table->timestamps();
         });
     }

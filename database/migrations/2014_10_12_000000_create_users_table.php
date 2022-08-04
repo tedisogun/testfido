@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('credential_id');
             $table->bigInteger('counter');
             $table->string('publickey', 1000);
-            $table->string('name');
+            $table->string('name'); 
             $table->timestamps();
         });
     }
