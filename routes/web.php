@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/login', [FIDOController::class, 'loginpage']);
 Route::post('/login', [FIDOController::class, 'login']);
-Route::get('/register', [FIDOController::class, 'registerpage']);
+Route::get('/register', [FIDOController::class, 'registerRequest']);
 Route::post('/register', [FIDOController::class, 'register']);
 
 Route::get('/phpinfo', function(){
