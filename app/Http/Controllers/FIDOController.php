@@ -71,6 +71,12 @@ class FIDOController extends Controller
     }
 
 
+    public function registerResponse(Request $req)
+    {
+        return response()->json([
+            "message" => "Success tedisogun from server"
+        ]);
+    }
 
     // public function registerpage()
     // {
