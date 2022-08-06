@@ -50,7 +50,7 @@ class FIDOController extends Controller
         $request_option = array();
 
         $rp = array(
-            "id" => "https://testfido.com",
+            "id" => "testfido.com",
             "name" => "Testfido QR",
             "icon" => "https://testfido.com/images/rp-icon.png"
         );
