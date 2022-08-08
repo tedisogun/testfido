@@ -17,7 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [FIDOController::class, 'loginpage']);
+Route::get('/login-qr', [FIDOController::class, 'login_qr_getpage']);
+Route::post('/login-qr', [FIDOController::class, 'login_qr_response']);
 Route::post('/login', [FIDOController::class, 'login']);
 Route::get('/register', [FIDOController::class, 'registerRequest']);
 Route::post('/register', [FIDOController::class, 'registerResponse']);

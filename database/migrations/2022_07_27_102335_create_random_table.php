@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->enum('type', ['register', 'login']);
             $table->string('challenge', 64);
+            $table->string('qr', 64)->nullable();
             // use to store user id when user doing register & null when login request
             $table->string('user_id', 64)->nullable();
             // time a random challenge before expired. timecreated + second life cycle
