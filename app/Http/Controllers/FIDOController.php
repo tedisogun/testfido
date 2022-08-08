@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PublicKey;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Random;
 use Base64Url\Base64Url;
+use App\Helpers\CryptoAuth;
+
 
 class FIDOController extends Controller
 {
 
     public function login_qr_getpage()
     {
+
         //  random bytes binary. 32 bytes = 256bit
         // convert challenge to base64url
         $random_challenge = Base64Url::encode(random_bytes(32));
@@ -120,76 +124,76 @@ class FIDOController extends Controller
 
     public function registerResponse(Request $req)
     {
-             // first check if all 3 value exist
-             if(! $req->has(['name', 'email', 'credential_id', 'attestation_object', 'clientdata_json']) ) return response()->json([
-                 'status' => 'fail',
-                 'message' => "some input is missing"
-             ]);
+        // first check if all 3 value exist
+        if (!$req->has(['name', 'email', 'credential_id', 'attestation_object', 'clientdata_json']))
+            return response()->json([
+                'status' => 'fail',
+                'message' => "some input is missing"]);
 
-             /**
-              * put POST data to variable
-              */
-             $credential_id = $req->credential_id;
-             $clientdata_json = $req->clientdata_json;
-             $attestation_object = $req->attestation_object;
-             $email = $req->email;
-             $name = $req->name;
+        /**
+         * put POST data to variable
+         */
+        // credential_id is in baseu4l text format
+        $credential_id      = $req->credential_id;
+        $clientdata_json    = $req->clientdata_json;
+        $attestation_object = $req->attestation_object;
+        $email              = $req->email;
+        $name               = $req->name;
 
-             // check if email has been register before
-             $isNewEmail = User::where('email', $email)->first();
-             if($isNewEmail) return response()->json([
-                 'status' => 'fail',
-                 'message' => "Email has been use for register before"
-             ]);
+        // check if email has been register before
+        $isNewEmail = User::where('email', $email)->first();
+        if ($isNewEmail) return response()->json([
+            'status' => 'fail',
+            'message' => "Email has been use for register before"
+        ]);
 
-             /**
-              * Check clientDataJSON validity
-              *  */
-
-             // decode base64url from client to string
-             $clientdata_json =  Base64Url::decode($clientdata_json);
-             // decode string to json object php
-             $clientdata_json = json_decode($clientdata_json);
-
-
-             // check challenge that RP send on register page, if exist on database it mean challenge is valid
-             $is_challenge_exist = Random::where('challenge', $clientdata_json->challenge)->first();
-             if(! $is_challenge_exist )
-             {
-                 return response()->json([
-                     'status' => 'fail',
-                     'message' => "challenge is not exist on database"
-                 ]);
-             }else{
-                 // now time is greater than timeout time challenge, it mean challenge has been expired
-                 if(time() > strtotime($is_challenge_exist->timeout)){
-                     return response()->json([
-                         'status' => 'fail',
-                         'message' => "challenge expired"
-                     ]);
-                 }
-             }
-
-             // https://chromium.googlesource.com/chromium/src/+/master/content/browser/webauth/client_data_json.md
-             // make new variable collected_client_data to concat data on client_data_json
-
-             $collectedclientdata = new StdClass();
-             $collectedclientdata->type = $clientdata_json->type;
-             $collectedclientdata->challenge = $clientdata_json->challenge;
-             $collectedclientdata->origin = $clientdata_json->origin;
-             $collectedclientdata->crossOrigin = $clientdata_json->crossOrigin;
-             // collectedClientData as string json, use for verifying attestation
-             $collectedclientdata = json_encode($collectedclientdata, JSON_UNESCAPED_SLASHES);
+        /**
+         * Check clientDataJSON validity
+         *  */
+        // https://chromium.googlesource.com/chromium/src/+/master/content/browser/webauth/client_data_json.md
+        // make new variable collected_client_data to concat data on client_data_json
+        // decode base64url from client to string
+        $clientdata_json = Base64Url::decode($clientdata_json);
 
 
+        // check challenge that RP send on register page, if exist on database it mean challenge is valid
+        $is_challenge_exist = Random::where('challenge', $clientdata_json->challenge)->first();
+        if (!$is_challenge_exist) {
+            return response()->json([
+                'status' => 'fail',
+                'message' => "challenge is not exist on database"
+            ]);
+        } else {
+            // now time is greater than timeout time challenge, it mean challenge has been expired
+            if (time() > strtotime($is_challenge_exist->timeout)) {
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => "challenge expired"
+                ]);
+            }
+        }
 
-             // Save data to database
-             $newuSER = new USER;
-             $newuSER->credential_id = $credential_id;
-             $newuSER->email = $email;
-             $newuSER->name = $name;
-             $newuSER->save();
+        // Get Authdata
+        $attestation_auth_data = CryptoAuth::parseAuthData($attestation_object);
 
+        $newPublicKey = new PublicKey;
+        $newPublicKey->type = $attestation_auth_data['COSEPublicKey']['type'];
+        $newPublicKey->type_scheme = $attestation_auth_data['COSEPublicKey']['scheme'];
+        $newPublicKey->hash_name = $attestation_auth_data['COSEPublicKey']['hash'];
+        $newPublicKey->key = $attestation_auth_data['COSEPublicKey']['key'];
+        $newPublicKey->counter = $attestation_auth_data['counter'];
+        $newPublicKey->save();
+
+
+
+        // Save data to database
+        $newuSER                = new USER;
+        $newuSER->credential_id = $credential_id;
+        $newuSER->email         = $email;
+        $newuSER->name          = $name;
+        $newuSER->user_id       = $is_challenge_exist->user_id;
+        $newuSER->publickey_id = $newPublicKey->id;
+        $newuSER->save();
 
 
         return response()->json([
