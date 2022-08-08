@@ -9,4 +9,5 @@ class PublicKey extends Model
 {
     use HasFactory;
     protected $table = 'public_key';
+    public $timestamps = false;
 }
