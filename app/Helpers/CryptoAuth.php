@@ -115,8 +115,8 @@ public static function parseAuthData($attestation_object)
     $pubKeyCose = CBOREncoder::decode($cosepub_hex);
 
     if($pubKeyCose[COSEKEYS['kty']] == COSEKTY['EC2'] ){
-        $x = $pubKeyCose[COSEKEYS['x']];
-        $y = $pubKeyCose[COSEKEYS['y']];
+        $x = bin2hex($pubKeyCose[COSEKEYS['x']]->get_byte_string());
+        $y = bin2hex($pubKeyCose[COSEKEYS['y']]->get_byte_string());
 
         // public key type
         $publicKeyType = 'ec';
