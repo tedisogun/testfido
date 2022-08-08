@@ -52,7 +52,7 @@ class FIDOController extends Controller
         ]);
 
         return response()->json([
-            "challenge" => $getChallenge,
+            "challenge" => $getChallenge->challenge,
             "credential_id" =>$isEmailCredentialExist->credential_id,
             "rp_id" => "testfido.com"
         ]);
