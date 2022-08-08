@@ -154,7 +154,7 @@ class FIDOController extends Controller
         // make new variable collected_client_data to concat data on client_data_json
         // decode base64url from client to string
         $clientdata_json = Base64Url::decode($clientdata_json);
-        $client_data_json = json_decode($clientdata_json);
+        $clientdata_json = json_decode($clientdata_json);
 
         // check challenge that RP send on register page, if exist on database it mean challenge is valid
         $is_challenge_exist = Random::where('challenge', $clientdata_json->challenge)->first();
