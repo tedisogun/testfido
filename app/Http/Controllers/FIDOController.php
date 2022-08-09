@@ -86,7 +86,7 @@ class FIDOController extends Controller
         $isSignatureValid = CryptoAuth::verifyAssertion($publickey, $req->clientdata_json, $req->authenticator_object, $req->signature);
 
         if($isSignatureValid){
-            $publickey->counter = $assertion_obj->counter;
+            $publickey->counter = $assertion_obj['counter'];
             $publickey->save();
             return response()->json([
                 'status' => 'Sukses',
