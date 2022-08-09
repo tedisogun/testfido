@@ -78,7 +78,7 @@
     var interval = 5000;  // 1000 = 1 second, 3000 = 3 seconds
     function doAjax() {
         let qrcode_base64url = {
-            qr_code : {{$qr_code}}
+            qr_code : '{{$qr_code}}'
         }
         $.ajax({
             type: 'GET',
