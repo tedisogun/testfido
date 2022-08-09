@@ -83,7 +83,7 @@
         $.ajax({
             type: 'GET',
             url: '/check-challenge-already-login',
-            data: qrcode_base64url.serialize(),
+            data: qrcode_base64url,
             dataType: 'json',
             success: function (data) {
                 console.log('data : '+ JSON.stringify(data))
