@@ -67,6 +67,41 @@ class FIDOController extends Controller
 
     public function login(Request $req)
     {
+        if(! $req->has(['email','credential_id', 'clientdata_json', 'authenticator_object', 'signature']) ) return response()->json([
+            'status' => 'fail',
+            'message' => "Not Enough Parameter data"
+        ]);
+
+        $user = User::where('email', $req->email)->where('credential_id', $req->credential_id)->first();
+
+        if(! $user)return response()->json([
+            'status' => 'fail',
+            'message' => "email or credential is not on database"
+        ]);
+
+        // get for counter ++
+        $assertion_obj = CryptoAuth::parseAuthAssertion($req->authenticator_object);
+
+        $publickey = PublicKey::where('id', $user->publickey_id)->first();
+        $isSignatureValid = CryptoAuth::verifyAssertion($publickey, $req->clientdata_json, $req->authenticator_object, $req->signature);
+
+        if($isSignatureValid){
+            $publickey->counter = $assertion_obj->counter;
+            $publickey->save();
+            return response()->json([
+                'status' => 'Sukses',
+                'message' => "Berhasil Login dengan QR"
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'Fail',
+                'message' => "Signature is Invalid"
+            ]);
+        }
+
+
+
+
 
     }
 

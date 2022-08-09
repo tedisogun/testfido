@@ -4,7 +4,10 @@ namespace App\Helpers;
 use Base64Url\Base64Url;
 use CBOR\CBOREncoder;
 
-
+use Elliptic\EC;
+use phpseclib3\Crypt\PublicKeyLoader;
+use phpseclib3\Math\BigInteger;
+use phpseclib3\Crypt\RSA;
 
 
 // COSEPublicKey type
@@ -121,7 +124,7 @@ public static function parseAuthData($attestation_object)
         // public key type
         $publicKeyType = 'ec';
         // public key in hex
-        $publicKeyHex = '0x04'.$x.$y;
+        $publicKeyHex = '04'.$x.$y;
         // curve
         $publicKeyScheme = COSECRV[$pubKeyCose[COSEKEYS['crv']]];
         //hash
@@ -158,6 +161,76 @@ public static function parseAuthData($attestation_object)
     );
 
 
+
+}
+
+public static function verifyAssertion($publickey, $clientdatajson, $authenticator_object, $signature)
+{
+    $clientdatajson = Base64Url::decode($clientdatajson);
+    $authenticator_object = Base64Url::decode($authenticator_object);
+    $signature = bin2hex(Base64Url::decode($signature));
+
+    $clientdatajson_hash = hash('sha256', $clientdatajson, true);
+    $signature_base = ($authenticator_object . $clientdatajson_hash) ;
+
+
+
+    $signatureIsValid = false;
+    if($publickey->type == 'ec')
+    {
+        $signature_base = hash($publickey->hash_name, $signature_base);
+        $ec = new EC($publickey->type_scheme);
+        $key = $ec->keyFromPublic($publickey->key, 'hex');
+        $signatureIsValid = $key->verify($signature_base, $signature);
+
+    }
+
+
+    else if($publickey->type ='rsa'){
+
+        $key = PublicKeyLoader::load([
+            'e' => new BigInteger('010001', 16),
+            'n' => new BigInteger($publickey->key, 16)
+        ]);
+
+        if($publickey->type_scheme == 'pss')
+        {
+            $key = $key->withPadding(RSA::SIGNATURE_PSS)->withHash($publickey->hash_name);
+        }else if($publickey->type_scheme == 'pkcs1')
+        {
+            $key = $key->withPadding(RSA::SIGNATURE_PKCS1)->withHash($publickey->hash_name);
+        }
+
+        $signatureIsValid = $key->verify($signature_base, $signature);
+    }
+
+    return $signatureIsValid;
+}
+
+
+public static function parseAuthAssertion($assertion_obj)
+{
+    $buffer = bin2hex(Base64Url::decode($assertion_obj));
+    // One byte is 2 hex character
+    $rpIdHash = substr($buffer, 0, 64);      $buffer = substr($buffer, 64);
+    $flagsBuf = substr($buffer, 0, 2);       $buffer = substr($buffer, 2);
+    $flagsInt =  hexdec($flagsBuf);
+    $flags = array(
+        'up' => boolval(($flagsInt & 0x01)),
+        'uv' => boolval(($flagsInt & 0x04)),
+        'at' => boolval(($flagsInt & 0x40)),
+        'ed' => boolval(($flagsInt & 0x80)),
+        'flagsInt' => $flagsInt
+    );
+
+    $counterBuf = substr($buffer, 0, 8);     $buffer = substr($buffer, 8);
+    $counter = hexdec($counterBuf);
+
+    return array(
+        "rpid_hash" => $rpIdHash,
+        "flags" => $flags,
+        "counter" => $counter
+    );
 
 }
 
