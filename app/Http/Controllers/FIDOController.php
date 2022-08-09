@@ -164,8 +164,8 @@ class FIDOController extends Controller
         $random->timeout = now()->addMinutes(60) ;
         $random->save();
 
-        return view('qrpage', [
-            'qr_code' => $random->qr
+        return view('sso_login', [
+            'qr_code' => $random->challenge
         ]);
     }
 
@@ -275,12 +275,13 @@ class FIDOController extends Controller
     {
         $session = Session::where('session_base64url', $req->session_base64url)->first();
         if($session){
-            return response()->json([
-                'status' => 'sukses login',
+            return view('welcome',[
+                'status' => true,
+                'session_id' => $req->session_base64url
             ]);
         }else{
-            return response()->json([
-                'status' => 'Session not exist',
+            return view('welcomeqr',[
+                'status' => false,
             ]);
         }
     }

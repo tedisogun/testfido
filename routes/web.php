@@ -30,3 +30,7 @@ Route::get('/welcome', [FIDOController::class, 'welcome']);
 Route::get('/phpinfo', function(){
     return view('phpinfo');
 });
+
+Route::get('/sso', function(){
+    return view('sso_login');
+});
