@@ -17,11 +17,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login-qr', [FIDOController::class, 'login_qr_getpage']);
+
 Route::post('/login-qr', [FIDOController::class, 'login_qr_response']);
 Route::post('/login', [FIDOController::class, 'login']);
 Route::get('/register', [FIDOController::class, 'registerRequest']);
 Route::post('/register', [FIDOController::class, 'registerResponse']);
+
+Route::get('/login-qr', [FIDOController::class, 'login_qr_getpage']);
+Route::get('/check-challenge-already-login', [FIDOController::class, 'is_challenge_already_login']);
+Route::get('/welcome', [FIDOController::class, 'welcome']);
 
 Route::get('/phpinfo', function(){
     return view('phpinfo');

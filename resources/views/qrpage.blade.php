@@ -71,5 +71,36 @@
     qrCode.append(document.getElementById("canvas"));
 </script>
 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script>
+    var interval = 5000;  // 1000 = 1 second, 3000 = 3 seconds
+    function doAjax() {
+        let qrcode_base64url = {
+            qr_code : {{$qr_code}}
+        }
+        $.ajax({
+            type: 'GET',
+            url: '/check-challenge-already-login',
+            data: qrcode_base64url.serialize(),
+            dataType: 'json',
+            success: function (data) {
+                console.log('data : '+ JSON.stringify(data))
+                if(data.is_succes === true){
+                    window.location = "https://testfido.com/welcome?session_base64url="+ data.session_base64url;
+                }else{
+                    console.log('request to server, no auth yet...');
+                }
+            },
+            complete: function (data) {
+                // Schedule the next
+                setTimeout(doAjax, interval);
+            }
+        });
+    }
+    setTimeout(doAjax, interval);
+</script>
+
 </body>
 </html>
