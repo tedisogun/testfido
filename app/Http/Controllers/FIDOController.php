@@ -275,12 +275,13 @@ class FIDOController extends Controller
     {
         $session = Session::where('session_base64url', $req->session_base64url)->first();
         if($session){
-            return response()->json([
-                'status' => 'sukses login',
+            return view('home',[
+                'status' => true,
+                'session_id' => $req->session_base64url
             ]);
         }else{
-            return response()->json([
-                'status' => 'Session not exist',
+            return view('home',[
+                'status' => false,
             ]);
         }
     }
