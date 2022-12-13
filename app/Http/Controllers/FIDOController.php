@@ -256,7 +256,7 @@ class FIDOController extends Controller
 
     public function is_challenge_already_login(Request $req)
     {
-        $random = Random::where('qr', $req->qr_code )->first();
+        $random = Random::where('challenge', $req->qr_code )->first();
         $session = Session::where('random_id', $random->id )->first();
 
         if($session){
