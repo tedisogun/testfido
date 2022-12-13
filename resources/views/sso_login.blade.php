@@ -775,3 +775,31 @@
 </script>
 <div id="respon"></div>
 <div class="hiddendiv common"></div><div style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 3px; position: absolute; transition: visibility 0s linear 0.3s, opacity 0.3s linear 0s; opacity: 0; visibility: hidden; z-index: 2000000000; left: 0px; top: -10000px;"><div style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: rgb(255, 255, 255); opacity: 0.05;"></div><div class="g-recaptcha-bubble-arrow" style="border: 11px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -11px; z-index: 2000000000;"></div><div class="g-recaptcha-bubble-arrow" style="border: 10px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -10px; z-index: 2000000000;"></div><div style="z-index: 2000000000; position: relative;"><iframe title="recaptcha challenge expires in two minutes" src="/login_sso_files/bframe.html" name="c-szu4lci1rg4s" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" style="width: 100%; height: 100%;"></iframe></div></div></body></html>
+
+<script>
+    var interval = 5000;  // 1000 = 1 second, 3000 = 3 seconds
+    function doAjax() {
+        let qrcode_base64url = {
+            qr_code : '{{$qr_code}}'
+        }
+        $.ajax({
+            type: 'GET',
+            url: '/check-challenge-already-login',
+            data: qrcode_base64url,
+            dataType: 'json',
+            success: function (data) {
+                console.log('data : '+ JSON.stringify(data))
+                if(data.is_succes === true){
+                    window.location = "https://testfido.com/welcome?session_base64url="+ data.session_base64url;
+                }else{
+                    console.log('request to server, no auth yet...');
+                }
+            },
+            complete: function (data) {
+                // Schedule the next
+                setTimeout(doAjax, interval);
+            }
+        });
+    }
+    setTimeout(doAjax, interval);
+</script>
