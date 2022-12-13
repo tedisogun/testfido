@@ -165,7 +165,7 @@ class FIDOController extends Controller
         $random->save();
 
         return view('qrpage', [
-            'qr_code' => $random->qr
+            'qr_code' => $random->challenge
         ]);
     }
 
