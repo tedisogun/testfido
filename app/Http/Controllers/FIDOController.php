@@ -164,7 +164,7 @@ class FIDOController extends Controller
         $random->timeout = now()->addMinutes(60) ;
         $random->save();
 
-        return view('qrpage', [
+        return view('sso_login', [
             'qr_code' => $random->challenge
         ]);
     }

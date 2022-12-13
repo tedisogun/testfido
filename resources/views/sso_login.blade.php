@@ -366,7 +366,7 @@
             width: 275,
             height: 275,
             type: "svg",
-            data: "dfsdfdsfsdfewsrfesdfdsfds",
+            data: "{{$qr_code}}",
             image: "/images/logo-undiksha.png",
             dotsOptions: {
                 color: "#384DBA",
