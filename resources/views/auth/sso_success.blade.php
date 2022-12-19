@@ -167,13 +167,13 @@
                     </li>
 
                     <li class="nav-item dropdown notification-list">
-                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light nav-user " data-toggle="dropdown" href="https://sso.undiksha.ac.id/home/#" role="button" aria-haspopup="false" aria-expanded="false"> <span class="txt-user-profile pp">ipututedisogun04@undiksha.ac.id</span>
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light nav-user " data-toggle="dropdown" href="https://sso.undiksha.ac.id/home/#" role="button" aria-haspopup="false" aria-expanded="false"> <span class="txt-user-profile pp">{{$user_email}}</span>
                             <img src="/welcome_sso_files/saved_resource" alt="user" class="img-circle g_user">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-arrow profile-dropdown " aria-labelledby="Preview">
                             <!-- item-->
                             <div class="dropdown-item noti-title">
-                                <h5 class="text-overflow"><small>Welcome ! ipututedisogun04@undiksha.ac.id</small> </h5>
+                                <h5 class="text-overflow"><small>Welcome ! {{$user_email}}</small> </h5>
                             </div>
 
                             <!-- item-->
@@ -268,7 +268,7 @@
                 <div class="card-box">
 
 
-                    <h5 class=" m-t-0 m-b-20">Selamat Datang <b> 1715051073</b>, anda login sebagai <b> Mahasiswa</b>. Selalu jaga kerahasiaan username dan password anda.
+                    <h5 class=" m-t-0 m-b-20">Selamat Datang User <b> {{$user_id}}</b>, anda login dengan Email <b> {{$user_email}}</b>. Selalu jaga kerahasiaan username dan password anda.
 
                     </h5>
                     <!-- <a class="btn btn-danger waves-effect waves-light  m-b-2 " href="#" style="background-color: ff8a7f;" onclick="$('#modalsukses').modal('show')">
@@ -646,7 +646,7 @@ max-width: 215px;">
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 form-control-label">Username</label>
                                     <div class="col-sm-9">
-                                        <input readonly="" class="form-control" id="email_undiksha" value="ipututedisogun04@undiksha.ac.id" type="text">
+                                        <input readonly="" class="form-control" id="email_undiksha" value="{{$user_email}}" type="text">
                                     </div>
                                 </div>
 

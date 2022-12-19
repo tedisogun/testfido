@@ -248,8 +248,12 @@ class FIDOController extends Controller
     {
         $session = Session::where('session_base64url', $req->session_base64url)->first();
         if($session){
+            $user = $isNewEmail = User::where('id', $session->user_id)->first();
+
             return view('auth/sso_success', [
-                'session_base64url' => $req->session_base64url
+                'session_base64url' => $req->session_base64url,
+                'user_email' => $user->email,
+                'user_id' => $user->user_id
             ]);
 
         }else{
