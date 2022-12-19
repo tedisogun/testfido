@@ -268,7 +268,7 @@
                 <div class="card-box">
 
 
-                    <h5 class=" m-t-0 m-b-20">Selamat Datang User <b> {{$user_id}}</b>, anda login dengan Email <b> {{$user_email}}</b>. Selalu jaga kerahasiaan username dan password anda.
+                    <h5 class=" m-t-0 m-b-20">Selamat Datang User <b> {{$user_id}}</b>, anda login dengan Email <b> {{$user_email}}</b>. .
 
                     </h5>
                     <!-- <a class="btn btn-danger waves-effect waves-light  m-b-2 " href="#" style="background-color: ff8a7f;" onclick="$('#modalsukses').modal('show')">
