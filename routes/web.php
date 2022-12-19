@@ -13,24 +13,41 @@ use App\Http\Controllers\FIDOController;
 |
 */
 
+
+
+// Request & Response Register
+Route::get('/register', [FIDOController::class, 'registerRequest']);
+Route::post('/register', [FIDOController::class, 'registerResponse']);
+
+// Getting QR code & Sign response
+Route::get('/login-qr', [FIDOController::class, 'login_qr_getpage']);
+Route::post('/login', [FIDOController::class, 'login']);
+Route::get('/check-challenge-already-login', [FIDOController::class, 'is_challenge_already_login']);
+
+// Succes page after user successfuly sign with fido2
+Route::get('/success', [FIDOController::class, 'success']);
+
+
+
+
+/*
+ *
+ * Unused Routes
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 
 Route::post('/login-qr', [FIDOController::class, 'login_qr_response']);
-Route::post('/login', [FIDOController::class, 'login']);
-Route::get('/register', [FIDOController::class, 'registerRequest']);
-Route::post('/register', [FIDOController::class, 'registerResponse']);
-
-Route::get('/login-qr', [FIDOController::class, 'login_qr_getpage']);
-Route::get('/check-challenge-already-login', [FIDOController::class, 'is_challenge_already_login']);
-Route::get('/welcome', [FIDOController::class, 'welcome']);
 
 Route::get('/phpinfo', function(){
-    return view('phpinfo');
+    return view('unused/phpinfo');
 });
 
 Route::get('/sso', function(){
     return view('sso_login');
 });
+
+*/

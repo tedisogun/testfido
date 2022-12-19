@@ -164,38 +164,9 @@ class FIDOController extends Controller
         $random->timeout = now()->addMinutes(60) ;
         $random->save();
 
-        return view('sso_login', [
+        return view('auth/sso_login', [
             'qr_code' => $random->challenge
         ]);
-    }
-
-    public function login_qr_response(Request $req)
-    {
-        // first check if all 3 value exist
-        if(! $req->has(['qr_code', 'email', 'credential_id']) ) return response()->json([
-            'status' => 'fail',
-            'message' => "Not Enough Parameter data"
-        ]);
-
-        $isEmailCredentialExist = User::where('email', $req->email)->where('credential_id', $req->credential_id)->first();
-        if(! $isEmailCredentialExist) return response()->json([
-            'status' => 'fail',
-            'message' => "Email or Credential is unknown"
-        ]);
-
-        $getChallenge = Random::where('qr', $req->qr_code)->first();
-
-        if(! $getChallenge) return response()->json([
-            'status' => 'fail',
-            'message' => "Qr Code wrong unkown"
-        ]);
-
-        return response()->json([
-            "challenge" => $getChallenge->challenge,
-            "credential_id" =>$isEmailCredentialExist->credential_id,
-            "rp_id" => "testfido.com"
-        ]);
-
     }
 
 
@@ -271,19 +242,66 @@ class FIDOController extends Controller
         }
     }
 
-    public function welcome(Request $req)
+
+
+    public function success(Request $req)
     {
         $session = Session::where('session_base64url', $req->session_base64url)->first();
         if($session){
-            return response()->json([
-                'status' => 'sukses login',
+            return view('auth/sso_success', [
+                'session_base64url' => $req->session_base64url
             ]);
+
         }else{
             return response()->json([
                 'status' => 'Session not exist',
             ]);
         }
     }
+
+
+
+
+    /*
+ * -> Disable, User scan the qr from website page
+ * -> Make connection to relying party server, sending qr code, email and credential
+ * -> server making sure if email, qr and credential is valid then  send back challenge to sign to client
+ * -> client receive challenge and use to authenticate with fido2
+ * -> client authenticate produce signature, client data, authdata and send it again to relying party server
+ * -> relying party server verify the signature and other data, if valid, user is valid and giving a login, if not, someting is wrong with signature or other data
+ * -> ->
+ * -> more simple proces is -> user go to qr page, qr code is actually challenge code
+ * -> use take that challenge and sign with fido2 authenticator
+ * -> send signature and other data to server, verify by server, done
+ * */
+//    public function login_qr_response(Request $req)
+//    {
+//        // first check if all 3 value exist
+//        if(! $req->has(['qr_code', 'email', 'credential_id']) ) return response()->json([
+//            'status' => 'fail',
+//            'message' => "Not Enough Parameter data"
+//        ]);
+//
+//        $isEmailCredentialExist = User::where('email', $req->email)->where('credential_id', $req->credential_id)->first();
+//        if(! $isEmailCredentialExist) return response()->json([
+//            'status' => 'fail',
+//            'message' => "Email or Credential is unknown"
+//        ]);
+//
+//        $getChallenge = Random::where('qr', $req->qr_code)->first();
+//
+//        if(! $getChallenge) return response()->json([
+//            'status' => 'fail',
+//            'message' => "Qr Code wrong unkown"
+//        ]);
+//
+//        return response()->json([
+//            "challenge" => $getChallenge->challenge,
+//            "credential_id" =>$isEmailCredentialExist->credential_id,
+//            "rp_id" => "testfido.com"
+//        ]);
+//
+//    }
 
 
 }

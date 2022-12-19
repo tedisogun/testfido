@@ -790,7 +790,7 @@
             success: function (data) {
                 console.log('data : '+ JSON.stringify(data))
                 if(data.is_succes === true){
-                    window.location = "https://testfido.com/welcome?session_base64url="+ data.session_base64url;
+                    window.location = "https://testfido.com/success?session_base64url="+ data.session_base64url;
                 }else{
                     console.log('request to server, no auth yet...');
                 }
