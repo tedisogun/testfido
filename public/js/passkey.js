@@ -10,8 +10,8 @@ async function register(randomChallenge, userID){
         },
         user: {
             id: userIDBuffer,
-            name: "John",
-            displayName: "John",
+            name: "tedi",
+            displayName: "sogun",
         },
         pubKeyCredParams: [{alg: -7, type: "public-key"},{alg: -257, type: "public-key"}],
         // excludeCredentials: [{
@@ -41,6 +41,7 @@ async function login(randomChallenge, userID){
     const publicKeyCredentialRequestOptions = {
         challenge: randomChallengeBuffer,
         rpId : 'testfido.com',
+
     };
 
     const credential = await navigator.credentials.get({
