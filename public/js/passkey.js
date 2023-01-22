@@ -20,7 +20,7 @@ async function register(randomChallenge, userID){
         //     transports: ['internal'],
         // }],
         authenticatorSelection: {
-            authenticatorAttachment: "platform",
+         //   authenticatorAttachment: "platform",
             requireResidentKey: true,
         }
     };
