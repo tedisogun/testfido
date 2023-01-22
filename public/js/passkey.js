@@ -1,7 +1,8 @@
 
 async function register(randomChallenge, userID){
+    var randomChallengeBuffer = new TextEncoder().encode(randomChallenge);
     const publicKeyCredentialCreationOptions = {
-        challenge: randomChallenge,
+        challenge: randomChallengeBuffer,
         rp: {
             name: "Test Fido Passkey",
             id: "testfido.com",
