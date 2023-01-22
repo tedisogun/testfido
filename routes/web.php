@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FIDOController;
+use App\Http\Controllers\PasskeyController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,6 +27,10 @@ Route::get('/check-challenge-already-login', [FIDOController::class, 'is_challen
 
 // Succes page after user successfuly sign with fido2
 Route::get('/success', [FIDOController::class, 'success']);
+
+
+// Using Passkey Instead of FIDO2
+Route::get('/auth-landing', [PasskeyController::class, 'authLanding']);
 
 
 
