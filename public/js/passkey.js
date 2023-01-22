@@ -29,5 +29,7 @@ async function register(randomChallenge, userID){
         publicKey: publicKeyCredentialCreationOptions
     });
 
+    console.log(credential);
+
 // Encode and send the credential to the server for verification.
 }
