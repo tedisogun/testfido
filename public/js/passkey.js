@@ -33,3 +33,21 @@ async function register(randomChallenge, userID){
 
 // Encode and send the credential to the server for verification.
 }
+
+
+
+async function login(randomChallenge, userID){
+    var randomChallengeBuffer = new TextEncoder().encode(randomChallenge);
+    const publicKeyCredentialRequestOptions = {
+        challenge: randomChallengeBuffer,
+        rpId : 'testfido.com',
+    };
+
+    const credential = await navigator.credentials.get({
+        publicKey: publicKeyCredentialRequestOptions
+    });
+
+    console.log(credential);
+
+// Encode and send the credential to the server for verification.
+}

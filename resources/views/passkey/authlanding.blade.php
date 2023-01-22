@@ -16,6 +16,11 @@
 <button onclick="register('{{$random_challenge}}', '{{$random_userid}}')">
     Registering
 </button>
+
+<button onclick="login('{{$random_challenge}}', '{{$random_userid}}')">
+    Login
+</button>
+
 <script src="/js/passkey.js"></script>
 </body>
 </html>
