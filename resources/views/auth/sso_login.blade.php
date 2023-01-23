@@ -241,7 +241,7 @@
                             <div id="login_passkey"  style="margin-bottom: 2px;" class="row">
                                 <div class="input-field col s12">
 
-                                    <button onclick="show_qr()" class=" col s12 waves-effect waves-light gradient-45deg-purple-light-blue  btn-large  gradient-shadow  z-depth-4">
+                                    <button onclick="show_qr()" class=" col s12 waves-effect waves-light  btn-large  gradient-shadow  z-depth-4" style="background: linear-gradient(45deg,#48b7f5 0%, #157bef 100%);">
                                         <i class="material-icons right">fingerprint</i>Login Passkey</button>
 
                                 </div>
