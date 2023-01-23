@@ -755,10 +755,6 @@ max-width: 215px;">
 
 
 
-<script>
-    var resizefunc = [];
-</script>
-
 <!-- jQuery  -->
 <script src="/welcome_sso_files/jquery.min.js"></script>
 
@@ -776,72 +772,6 @@ max-width: 215px;">
 
 
 
-
-
-
-
-<script>
-
-    var tipe_user = 'Mahasiswa';
-    var nim = '1715051073';
-    if (tipe_user == 'Mahasiswa'){
-
-
-        if ((nim).substring(0, 2) >= 19) {
-
-            if ((nim).substring(0, 2) == 19) {
-                if ((nim).substring(6)[0] != 1) {
-                    $("#SIAK-NG").hide();
-                } else {
-                    $("#SIAK").hide();
-                }
-            } else {
-                $("#SIAK").hide();
-            }
-
-
-        } else {
-            $("#SIAK-NG").hide();
-        }
-
-
-
-
-        if ((nim).substring(0, 2) == 20) {
-
-            if ((nim).substring(6)[0] == 7) {
-                $("#SIAK-NG").hide();
-                $("#SIAK").show();
-            } else {
-                $("#SIAK").hide();
-            }
-
-        }
-
-
-
-
-
-    }
-
-
-
-
-
-
-    if (isEmail($("#email_undiksha").val())) {
-        var str = $("#email_undiksha").val();
-        var res = str.split("@");
-        $("#email_undiksha").val(res[0]);
-    }
-
-
-
-    function isEmail(email) {
-        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        return regex.test(email);
-    }
-</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js" integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body></html>
