@@ -3,15 +3,10 @@
 async function checkPlatformAuthAvailable()
 {
     if (window.PublicKeyCredential) {
-        PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()
-            .then((available) => {
-                if (available) {
-                    return true;
-                } else {
-                    return false;
-                }
-            })
-            .catch((err) => console.log("Something went wrong."));
+        let result = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+
+        if(result) return true;
+        else return false;
     }else{
         return false;
     }

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0036)https://sso.undiksha.ac.id/cas/login -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 
@@ -41,19 +40,6 @@
 </head>
 
 <body class="loaded">
-<!-- Start Page Loading -->
-<!-- <div id="loader-wrapper">
-  <div id="loader">
-    <div id="loader-logo"></div>
-  </div>
-  <div class="loader-section section-left"></div>
-  <div class="loader-section section-right"></div>
-</div> -->
-<!-- End Page Loading -->
-
-
-
-
 
 
 <style>
@@ -143,8 +129,7 @@
 
 
 </style>
-<div class="loading" style="display:none;"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>
-<!--Basic Card-->
+
 
 
 
