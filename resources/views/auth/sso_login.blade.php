@@ -364,8 +364,6 @@
     //clear cache
 </script>
 
-<script src="/login_sso_files/api.js" async="" defer="">
-</script>
 
 <script src="/js/passkey.js"></script>
 
