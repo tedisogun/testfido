@@ -12,9 +12,11 @@ async function checkPlatformAuthAvailable()
                 }
             })
             .catch((err) => console.log("Something went wrong."));
+    }else{
+        return false;
     }
 
-    return false;
+
 }
 
 
