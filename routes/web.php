@@ -16,21 +16,21 @@ use App\Http\Controllers\PasskeyController;
 
 
 
-// Request & Response Register
-Route::get('/register', [FIDOController::class, 'registerRequest']);
-Route::post('/register', [FIDOController::class, 'registerResponse']);
-
-// Getting QR code & Sign response
-Route::get('/login-qr', [FIDOController::class, 'login_qr_getpage']);
-Route::post('/login', [FIDOController::class, 'login']);
-Route::get('/check-challenge-already-login', [FIDOController::class, 'is_challenge_already_login']);
-
-// Succes page after user successfuly sign with fido2
-Route::get('/success', [FIDOController::class, 'success']);
+//// Request & Response Register
+//Route::get('/register', [FIDOController::class, 'registerRequest']);
+//Route::post('/register', [FIDOController::class, 'registerResponse']);
+//
+//// Getting QR code & Sign response
+//Route::get('/login-qr', [FIDOController::class, 'login_qr_getpage']);
+//Route::post('/login', [FIDOController::class, 'login']);
+//Route::get('/check-challenge-already-login', [FIDOController::class, 'is_challenge_already_login']);
+//
+//// Succes page after user successfuly sign with fido2
+//Route::get('/success', [FIDOController::class, 'success']);
 
 
 // Using Passkey Instead of FIDO2
-Route::get('/auth-landing', [PasskeyController::class, 'authLanding']);
+Route::get('/login', [PasskeyController::class, 'getSSOLoginPage']);
 
 
 

@@ -16,7 +16,7 @@ async function checkPlatformAuthAvailable()
 
 
 
-async function register(randomChallenge, userID, excludeCredential){
+async function registerPasskey(randomChallenge, userID, excludeCredential){
     // challenge is string convert to UINT8ARRAY
     var randomChallengeBuffer = new TextEncoder().encode(randomChallenge);
 
@@ -58,7 +58,7 @@ async function register(randomChallenge, userID, excludeCredential){
 
 
 
-async function login(randomChallenge, userID){
+async function loginPasskey(randomChallenge){
     var randomChallengeBuffer = new TextEncoder().encode(randomChallenge);
     const publicKeyCredentialRequestOptions = {
         challenge: randomChallengeBuffer,

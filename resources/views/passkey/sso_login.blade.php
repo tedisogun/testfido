@@ -241,7 +241,7 @@
                             <div id="login_passkey"  style="margin-bottom: 2px;" class="row">
                                 <div class="input-field col s12">
 
-                                    <button onclick="show_qr()" class=" col s12 waves-effect waves-light  btn-large  gradient-shadow  z-depth-4" style="background: linear-gradient(45deg,#48b7f5 0%, #157bef 100%);">
+                                    <button onclick="loginPasskey('{{$challenge}}')" class=" col s12 waves-effect waves-light  btn-large  gradient-shadow  z-depth-4" style="background: linear-gradient(45deg,#48b7f5 0%, #157bef 100%);">
                                         <i class="material-icons right">fingerprint</i>Login Passkey</button>
 
                                 </div>
@@ -309,55 +309,53 @@
 
 
 
-    var fm1;
-    var email;
-    var password;
-    var login;
-    var login_password;
-    var login_qr;
-    var forget_password;
-    var qr_canvas = '   <div id="canvas_qr"  class="row margin" style="text-align: center;">  <div style="margin: 0 auto;" id="canvas"></div> </div>  ';
-    function show_qr(){
-            document.getElementById("message_top").innerHTML="Scan QR CODE dengan Aplikasi E-Ganesha";
-            fm1 = document.getElementById("fm1");
-            email = document.getElementById("email");
-            password = document.getElementById("password");
-            login = document.getElementById("login");
-            login_qr = document.getElementById("login_qr");
-            forget_password = document.getElementById("forget_password");
-            login_password = document.getElementById("login_password");
-            login_password.innerHTML = ' <i class="material-icons right">lock</i> Login dengan Password';
-            fm1.innerHTML= qr_canvas;
-            fm1.appendChild(login);
-            fm1.appendChild(forget_password);
+{{--    var fm1;--}}
+{{--    var email;--}}
+{{--    var password;--}}
+{{--    var login;--}}
+{{--    var login_password;--}}
+{{--    var login_qr;--}}
+{{--    var forget_password;--}}
+{{--    var qr_canvas = '   <div id="canvas_qr"  class="row margin" style="text-align: center;">  <div style="margin: 0 auto;" id="canvas"></div> </div>  ';--}}
+{{--    --}}
+{{--    function show_qr(){--}}
+{{--            document.getElementById("message_top").innerHTML="Scan QR CODE dengan Aplikasi E-Ganesha";--}}
+{{--            fm1 = document.getElementById("fm1");--}}
+{{--            email = document.getElementById("email");--}}
+{{--            password = document.getElementById("password");--}}
+{{--            login = document.getElementById("login");--}}
+{{--            login_qr = document.getElementById("login_qr");--}}
+{{--            forget_password = document.getElementById("forget_password");--}}
+{{--            login_password = document.getElementById("login_password");--}}
+{{--            login_password.innerHTML = ' <i class="material-icons right">lock</i> Login dengan Password';--}}
+{{--            fm1.innerHTML= qr_canvas;--}}
+{{--            fm1.appendChild(login);--}}
+{{--            fm1.appendChild(forget_password);--}}
 
 
-        const qrCode = new QRCodeStyling({
-            width: 275,
-            height: 275,
-            type: "svg",
-            data: "{{$qr_code}}",
-            image: "/images/logo-undiksha.png",
-            dotsOptions: {
-                color: "#384DBA",
-                type: "rounded"
-            },
-            backgroundOptions: {
-                color: "#e9ebee",
-            },
-            imageOptions: {
-                crossOrigin: "anonymous",
-                margin: 2,
-                imageSize:0.5
-            }
-        });
+{{--        const qrCode = new QRCodeStyling({--}}
+{{--            width: 275,--}}
+{{--            height: 275,--}}
+{{--            type: "svg",--}}
+{{--            data: "{{$qr_code}}",--}}
+{{--            image: "/images/logo-undiksha.png",--}}
+{{--            dotsOptions: {--}}
+{{--                color: "#384DBA",--}}
+{{--                type: "rounded"--}}
+{{--            },--}}
+{{--            backgroundOptions: {--}}
+{{--                color: "#e9ebee",--}}
+{{--            },--}}
+{{--            imageOptions: {--}}
+{{--                crossOrigin: "anonymous",--}}
+{{--                margin: 2,--}}
+{{--                imageSize:0.5--}}
+{{--            }--}}
+{{--        });--}}
 
-        qrCode.append(document.getElementById("canvas"));
+{{--        qrCode.append(document.getElementById("canvas"));--}}
 
-
-
-
-    }
+{{--    }--}}
 
 
 
