@@ -197,13 +197,12 @@
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix pt-5">person_outline</i>
 
-                                    <!-- <input required id="username" type="text"> -->
 
 
 
 
 
-                                    <input id="username" name="username" accesskey="u" type="text" value="" autocomplete="off" required="">
+                                    <input id="username" name="username" type="text" value="" autocomplete="off">
 
 
 
@@ -216,7 +215,7 @@
                                     <!-- <input required id="password" type="password"> -->
 
 
-                                    <input id="password" name="password" accesskey="p" type="password" value="" autocomplete="off" required="">
+                                    <input id="password" name="password" type="password" value="" autocomplete="off">
 
                                     <label for="password" class="active">Password</label>
                                 </div>
