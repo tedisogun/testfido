@@ -6,7 +6,7 @@ use App\Models\PublicKey;
 use App\Models\Session;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Random;
+use App\Models\PasskeySession;
 use Base64Url\Base64Url;
 use App\Helpers\CryptoAuth;
 
@@ -35,7 +35,7 @@ class FIDOController extends Controller
 //        }
 
         // Save random to database
-        $random = new Random;
+        $random = new PasskeySession;
         $random->challenge = $random_challenge;
         $random->user_id = $random_userId;
         $random->type = 'register';
@@ -103,7 +103,7 @@ class FIDOController extends Controller
         $clientdata_json = json_decode($clientdata_json);
 
         // check challenge that RP send on register page, if exist on database it mean challenge is valid
-        $is_challenge_exist = Random::where('challenge', $clientdata_json->challenge)->first();
+        $is_challenge_exist = PasskeySession::where('challenge', $clientdata_json->challenge)->first();
         if (!$is_challenge_exist) {
             return response()->json([
                 'status' => 'fail',
@@ -157,7 +157,7 @@ class FIDOController extends Controller
         $random_qrcode = Base64Url::encode(random_bytes(32));
 
         // Save random to database
-        $random = new Random;
+        $random = new PasskeySession;
         $random->challenge = $random_challenge;
         $random->qr = $random_qrcode;
         $random->type = 'login';
@@ -195,7 +195,7 @@ class FIDOController extends Controller
             $publickey->counter = $assertion_obj['counter'];
             $publickey->save();
             $clientdata_json = json_decode(Base64Url::decode($req->clientdata_json));
-            $random = Random::where('challenge', $clientdata_json->challenge)->first();
+            $random = PasskeySession::where('challenge', $clientdata_json->challenge)->first();
 
             $session = new Session;
             $session->random_id = $random->id;
@@ -227,7 +227,7 @@ class FIDOController extends Controller
 
     public function is_challenge_already_login(Request $req)
     {
-        $random = Random::where('challenge', $req->qr_code )->first();
+        $random = PasskeySession::where('challenge', $req->qr_code )->first();
         $session = Session::where('random_id', $random->id )->first();
 
         if($session){

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Session;
+use App\Models\PasskeySession;
 use Base64Url\Base64Url;
 use Carbon\Carbon;
 
@@ -26,13 +27,10 @@ class PasskeyController extends Controller
         //  random bytes binary. 32 bytes = 256bit
         // convert challenge to base64url
         $random_challenge = Base64Url::encode(random_bytes(32));
-        $random_qrcode = Base64Url::encode(random_bytes(32));
 
         // Save random to database
-        $random = new Random;
+        $random = new PasskeySession;
         $random->challenge = $random_challenge;
-        $random->qr = $random_qrcode;
-        $random->type = 'login';
         $random->timeout = now()->addMinutes(60) ;
         $random->save();
 
