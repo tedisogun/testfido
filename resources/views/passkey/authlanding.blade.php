@@ -13,7 +13,7 @@
 
 <body>
 
-<button onclick="register('{{$random_challenge}}', '{{$random_userid}}')">
+<button onclick="register('{{$random_challenge}}', '{{$random_userid}}', null)">
     Registering
 </button>
 

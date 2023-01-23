@@ -1,6 +1,29 @@
 
-async function register(randomChallenge, userID){
+/// Return true if Platform Authentication Support & false if it is not
+async function checkPlatformAuthAvailable()
+{
+    if (window.PublicKeyCredential) {
+        PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()
+            .then((available) => {
+                if (available) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+            .catch((err) => console.log("Something went wrong."));
+    }
+
+    return false;
+}
+
+
+
+async function register(randomChallenge, userID, excludeCredential){
+    // challenge is string convert to UINT8ARRAY
     var randomChallengeBuffer = new TextEncoder().encode(randomChallenge);
+
+    // userID also like challenge string convert to UINT8ARRAY
     var userIDBuffer = new TextEncoder().encode(userID);
     const publicKeyCredentialCreationOptions = {
         challenge: randomChallengeBuffer,
@@ -16,6 +39,7 @@ async function register(randomChallenge, userID){
         //{alg: -7, type: "public-key"} only accept RSA algorithm
         pubKeyCredParams: [{alg: -257, type: "public-key"}, {alg: -7, type: "public-key"}],
         excludeCredentials: [{
+            // Credential ID is Base64url convert to UINT8ARRAY
             id: base64url_decode("Zd7Cy9YKJ6u4kNmgTCign08Nn3MLwiNtfC_JlbSHL-4"),
             type: 'public-key',
             transports: ['internal'],
