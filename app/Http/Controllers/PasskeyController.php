@@ -7,6 +7,7 @@ use App\Models\Session;
 use App\Models\PasskeySession;
 use Base64Url\Base64Url;
 use Carbon\Carbon;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class PasskeyController extends Controller
 {
@@ -23,14 +24,14 @@ class PasskeyController extends Controller
 
     public function getSSOLoginPage(Request $req)
     {
-        $cookieSession = $req->cookie->get('castgc');
+        $cookieSession = $req->cookie('castgc');
 
         if($cookieSession ){
             $cookieSession = Session::where('castgc', $cookieSession )->first();
             if( $cookieSession && $cookieSession->status == "active") return redirect('/home');
         }
 
-        return $cookieSession;
+        return "fuckckc".$cookieSession;
 
         //  random bytes binary. 32 bytes = 256bit
         // convert challenge to base64url
