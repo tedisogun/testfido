@@ -23,7 +23,7 @@ class PasskeyController extends Controller
 
     public function getSSOLoginPage(Request $req)
     {
-        $cookieSession = $_COOKIE['castgc'];
+        $cookieSession = isset($_COOKIE['castgc']) ? $_COOKIE['castgc'] : null;
         if($cookieSession ){
             $cookieSession = Session::where('castgc', $cookieSession )->first();
             if( $cookieSession && $cookieSession->status == "active") return redirect('/home');
@@ -74,7 +74,7 @@ class PasskeyController extends Controller
     }
 
     public function getSSOHomePage(Request $req){
-        $cookieSession = $_COOKIE['castgc'];
+        $cookieSession = isset($_COOKIE['castgc']) ? $_COOKIE['castgc'] : null;
         if(!$cookieSession) return redirect('/login');
 
         $cookieSession = Session::where('castgc',$cookieSession )->first();
@@ -92,7 +92,9 @@ class PasskeyController extends Controller
 
     public function logout()
     {
-        $cookieSession = $_COOKIE['castgc'];
+        $cookieSession = isset($_COOKIE['castgc']) ? $_COOKIE['castgc'] : null;
+
+        if($cookieSession == null ) return redirect('/login');
         $cookieSession = Session::where('castgc',$cookieSession )->first();
         $cookieSession->status = "expired";
         $cookieSession->save();
