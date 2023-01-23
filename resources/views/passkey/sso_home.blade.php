@@ -29,6 +29,8 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" /><![endif]-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/login_sso_files/materialize.css" type="text/css" rel="stylesheet">
     <!-- Modernizr js -->
     <script src="/welcome_sso_files/modernizr.min.js"></script>
     <style type="text/css">

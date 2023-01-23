@@ -23,112 +23,105 @@
     <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
     <link href="/login_sso_files/perfect-scrollbar.css" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
-
     <style>
-
 
         .modal-border{
             border-top: 1px solid rgba(0, 0, 0, 0.1);
 
             bottom: 0;
         }
+        /* Absolute Center Spinner */
+        .loading {
+            position: fixed;
+            z-index: 9999999;
+            height: 2em;
+            width: 2em;
+            overflow: show;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
 
+        /* Transparent Overlay */
+        .loading:before {
+            content: '';
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.3);
+        }
+
+
+        .lds-ellipsis {
+            display: inline-block;
+            position: relative;
+            width: 64px;
+            height: 64px;
+            left:-10px;
+        }
+        .lds-ellipsis div {
+            position: absolute;
+            top: 27px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #cef;
+            animation-timing-function: cubic-bezier(0, 1, 1, 0);
+        }
+        .lds-ellipsis div:nth-child(1) {
+            left: 6px;
+            animation: lds-ellipsis1 0.6s infinite;
+        }
+        .lds-ellipsis div:nth-child(2) {
+            left: 6px;
+            animation: lds-ellipsis2 0.6s infinite;
+        }
+        .lds-ellipsis div:nth-child(3) {
+            left: 26px;
+            animation: lds-ellipsis2 0.6s infinite;
+        }
+        .lds-ellipsis div:nth-child(4) {
+            left: 45px;
+            animation: lds-ellipsis3 0.6s infinite;
+        }
+        @keyframes lds-ellipsis1 {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        @keyframes lds-ellipsis3 {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(0);
+            }
+        }
+        @keyframes lds-ellipsis2 {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(19px, 0);
+            }
+        }
 
 
     </style>
+
 </head>
 
 <body class="loaded">
 
 
-<style>
-    /* Absolute Center Spinner */
-    .loading {
-        position: fixed;
-        z-index: 9999999;
-        height: 2em;
-        width: 2em;
-        overflow: show;
-        margin: auto;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-    }
-
-    /* Transparent Overlay */
-    .loading:before {
-        content: '';
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.3);
-    }
-
-
-    .lds-ellipsis {
-        display: inline-block;
-        position: relative;
-        width: 64px;
-        height: 64px;
-        left:-10px;
-    }
-    .lds-ellipsis div {
-        position: absolute;
-        top: 27px;
-        width: 11px;
-        height: 11px;
-        border-radius: 50%;
-        background: #cef;
-        animation-timing-function: cubic-bezier(0, 1, 1, 0);
-    }
-    .lds-ellipsis div:nth-child(1) {
-        left: 6px;
-        animation: lds-ellipsis1 0.6s infinite;
-    }
-    .lds-ellipsis div:nth-child(2) {
-        left: 6px;
-        animation: lds-ellipsis2 0.6s infinite;
-    }
-    .lds-ellipsis div:nth-child(3) {
-        left: 26px;
-        animation: lds-ellipsis2 0.6s infinite;
-    }
-    .lds-ellipsis div:nth-child(4) {
-        left: 45px;
-        animation: lds-ellipsis3 0.6s infinite;
-    }
-    @keyframes lds-ellipsis1 {
-        0% {
-            transform: scale(0);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
-    @keyframes lds-ellipsis3 {
-        0% {
-            transform: scale(1);
-        }
-        100% {
-            transform: scale(0);
-        }
-    }
-    @keyframes lds-ellipsis2 {
-        0% {
-            transform: translate(0, 0);
-        }
-        100% {
-            transform: translate(19px, 0);
-        }
-    }
-
-
-</style>
 
 
 
