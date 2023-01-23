@@ -16,7 +16,7 @@ async function register(randomChallenge, userID){
         //{alg: -7, type: "public-key"} only accept RSA algorithm
         pubKeyCredParams: [{alg: -257, type: "public-key"}],
         excludeCredentials: [{
-            id:  Uint8Array.from(window.atob("UcBB2ubQ7hcoDVzFUx5SeZf0w_BSFA42BOkfVqeVcyQ"), c=>c.charCodeAt(0)),
+            id: new TextEncoder().encode("UcBB2ubQ7hcoDVzFUx5SeZf0w_BSFA42BOkfVqeVcyQ"),
             type: 'public-key',
             transports: ['internal'],
         }],
