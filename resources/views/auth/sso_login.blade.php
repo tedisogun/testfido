@@ -274,8 +274,8 @@
 
 <center style="margin-top: 15px;"><img src="/login_sso_files/logo-bsre.png" style="width: 100px"></center>
 
-<center>  <b> ... </b> <a href="https://upttik.undiksha.ac.id/helpdesk/faq" target="_blank">FAQ </a>| <a href="https://upttik.undiksha.ac.id/" target="_blank"> <i style="font-size: 16px;" class="material-icons prefix">language</i> </a> - Copyright © <script type="text/javascript" async="" src="/login_sso_files/recaptcha__en.js" crossorigin="anonymous" integrity="sha384-P8pCcHmv6YuQzFS4CHCBH75RXE60mJL5a4xXH5SOKJXf73JeLMNzQcVajnZH59MQ"></script><script async="" src="/login_sso_files/analytics.js"></script><script type="text/javascript">
-        document.write(new Date().getFullYear());
+<center>  <b> ... </b> <a href="https://upttik.undiksha.ac.id/helpdesk/faq" target="_blank">FAQ </a>| <a href="https://upttik.undiksha.ac.id/" target="_blank"> <i style="font-size: 16px;" class="material-icons prefix">language</i>
+    </a> - Copyright © document.write(new Date().getFullYear());
     </script>2022  <a href="http://undiksha.ac.id/" target="_blank"> Undiksha</a> <b> ... </b> </center>
 
 
