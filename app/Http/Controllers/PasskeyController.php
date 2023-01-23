@@ -32,7 +32,7 @@ class PasskeyController extends Controller
             if( $cookieSession && $cookieSession->status == "active") return redirect('/home');
         }
 
-        return  $x;
+        return  print_r($_COOKIE);
 
         //  random bytes binary. 32 bytes = 256bit
         // convert challenge to base64url
