@@ -753,14 +753,15 @@ max-width: 215px;">
         console.log(newCredential)
         //console.log(newCredential)
 
-        //'credential_id', 'attestation_object', 'clientdata_json'
+        //'credential_id' is base64url string
+        // 'attestation_object', 'clientdata_json' must be convert to base64url from arraybuffer
         $.ajax({
             type: "POST",
             url: "/register-passkey-credential",
             data: {
                 credential_id : newCredential.id,
-                attestation_object : newCredential.response.attestationObject,
-                clientdata_json : newCredential.response.clientDataJSON,
+                attestation_object : base64url_encode(newCredential.response.attestationObject),
+                clientdata_json : base64url_encode(newCredential.response.clientDataJSON),
             },
             success: function(result) {
                 console.log(result);
