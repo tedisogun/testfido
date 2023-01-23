@@ -26,6 +26,8 @@ async function registerPasskey(randomChallenge, user, credentials){
     var userExcludeCredentials = [];
 
     credentials.forEach(function (item, index) {
+        console.log('what about items')
+        console.log(item)
         userExcludeCredentials.push({
             id: base64url_decode(item),
             type: 'public-key',
