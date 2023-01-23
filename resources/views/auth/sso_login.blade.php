@@ -390,7 +390,7 @@
 <script>
     async function showHideFidoLoginButton()
     {
-        let platformAuthExist = checkPlatformAuthAvailable();
+        let platformAuthExist = await checkPlatformAuthAvailable();
 
         if(platformAuthExist){
             document.getElementById("login_qr").style.display = 'none';
@@ -398,6 +398,7 @@
             document.getElementById("login_qr").style.display = 'block';
         }
     }
+    showHideFidoLoginButton();
 </script>
 
 </body></html>
