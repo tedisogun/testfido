@@ -35,7 +35,7 @@ class PasskeyController extends Controller
         $random->timeout = now()->addMinutes(60) ;
         $random->save();
 
-        return view('auth/sso_login', [
+        return view('passkey/sso_login', [
             'challenge' => $random->challenge
         ]);
     }
