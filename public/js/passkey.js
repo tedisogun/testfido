@@ -16,7 +16,7 @@ async function register(randomChallenge, userID){
         //{alg: -7, type: "public-key"} only accept RSA algorithm
         pubKeyCredParams: [{alg: -257, type: "public-key"}, {alg: -7, type: "public-key"}],
         excludeCredentials: [{
-            id: new TextEncoder().encode("UcBB2ubQ7hcoDVzFUx5SeZf0w_BSFA42BOkfVqeVcyQ"),
+            id: base64url_decode("Zd7Cy9YKJ6u4kNmgTCign08Nn3MLwiNtfC_JlbSHL-4"),
             type: 'public-key',
             transports: ['internal'],
         }],
@@ -54,3 +54,20 @@ async function login(randomChallenge, userID){
 // Encode and send the credential to the server for verification.
 }
 
+
+
+function base64url_encode(buffer) {
+    return btoa(Array.from(new Uint8Array(buffer), b => String.fromCharCode(b)).join(''))
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+}
+
+function base64url_decode(value) {
+    const m = value.length % 4;
+    return Uint8Array.from(atob(
+        value.replace(/-/g, '+')
+            .replace(/_/g, '/')
+            .padEnd(value.length + (m === 0 ? 0 : 4 - m), '=')
+    ), c => c.charCodeAt(0)).buffer
+}
