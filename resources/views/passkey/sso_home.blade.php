@@ -105,13 +105,13 @@
                     </li>
 
                     <li class="nav-item dropdown notification-list">
-                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light nav-user " data-toggle="dropdown" href="https://sso.undiksha.ac.id/home/#" role="button" aria-haspopup="false" aria-expanded="false"> <span class="txt-user-profile pp">{{$user_email}}</span>
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light nav-user " data-toggle="dropdown" href="https://sso.undiksha.ac.id/home/#" role="button" aria-haspopup="false" aria-expanded="false"> <span class="txt-user-profile pp">{{$user->email}}</span>
                             <img src="/welcome_sso_files/saved_resource" alt="user" class="img-circle g_user">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-arrow profile-dropdown " aria-labelledby="Preview">
                             <!-- item-->
                             <div class="dropdown-item noti-title">
-                                <h5 class="text-overflow"><small>Welcome ! {{$user_email}}</small> </h5>
+                                <h5 class="text-overflow"><small>Welcome ! {{$user->email}}</small> </h5>
                             </div>
 
                             <!-- item-->
@@ -126,7 +126,7 @@
 
 
                             <!-- item http://sso.undiksha.ac.id/logout/ -->
-                            <a href="https://sso.undiksha.ac.id/home/logout/" class="dropdown-item notify-item">
+                            <a href="/logout" class="dropdown-item notify-item">
                                 <i class="zmdi zmdi-power"></i> <span>Logout</span>
                             </a>
 
@@ -206,7 +206,7 @@
                 <div class="card-box">
 
 
-                    <h5 class=" m-t-0 m-b-20">Selamat Datang User <b> {{$user_id}}</b>, anda login dengan Email <b> {{$user_email}}</b>. .
+                    <h5 class=" m-t-0 m-b-20">Selamat Datang User <b> {{$user->name}}</b>, anda login dengan Email <b> {{$user->email}}</b>. .
 
                     </h5>
                     <!-- <a class="btn btn-danger waves-effect waves-light  m-b-2 " href="#" style="background-color: ff8a7f;" onclick="$('#modalsukses').modal('show')">

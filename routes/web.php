@@ -31,7 +31,10 @@ use App\Http\Controllers\PasskeyController;
 
 // Using Passkey Instead of FIDO2
 Route::get('/login', [PasskeyController::class, 'getSSOLoginPage']);
-
+Route::post('/login-password', PasskeyController::class, 'loginPassword');
+Route::post('/login-passkey', PasskeyController::class, 'loginPasskey');
+Route::get('/logout', PasskeyController::class, 'logout');
+Route::get('/home', [PasskeyController::class, 'getSSOHomePage']);
 
 
 

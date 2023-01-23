@@ -188,7 +188,7 @@
 
                         <!-- <form class="login-form" style="padding: 0 0.75rem;"> -->
 
-                        <form id="fm1" class="login-form login-baru" action="https://sso.undiksha.ac.id/cas/login;jsessionid=C86BA0B20768BAAB80A442D3A8E43666" method="post">
+                        <form id="fm1" class="login-form login-baru" action="/login-password" method="post">
 
 
 
@@ -300,10 +300,6 @@
 
 <script type="text/javascript" src="/login_sso_files/cas.js"></script>
 
-
-
-
-
 <script>
 
 
@@ -361,6 +357,28 @@
 
     //clear cache
 </script>
+
+<script>
+    $("#login_password").click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "/login-password",
+            data: {
+                email: $("#username").val(),
+            },
+            success: function(result) {
+                $.cookie("castgc", result.castgc, { path: '/', expires: 7 });
+            },
+            error: function(result) {
+                console.log('something is error')
+                console.log(result)
+            }
+        });
+    });
+</script>
+
+
 
 
 <script src="/js/passkey.js"></script>
