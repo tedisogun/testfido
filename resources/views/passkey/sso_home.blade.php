@@ -739,26 +739,27 @@ max-width: 215px;">
                 console.log(result)
                 let newCredential = await registerPasskey(result.challenge, result.user, result.credentials );
                 console.log('success newcredentials')
+                console.log(newCredential)
                 //new credential from webauthn will be sent to the server
                 //'credential_id', 'attestation_object', 'clientdata_json'
                 console.log('shtit')
-                $.ajax({
-                    type: "POST",
-                    url: "/register-passkey-credential",
-                    data: {
-                        credential_id : newCredential.id,
-                        attestation_object : newCredential.response.attestationObject,
-                        clientdata_json : newCredential.response.clientDataJSON,
-                    },
-                    success: function(result) {
-                        console.log(result);
-                        alert("success");
-                    },
-                    error: function(result) {
-                        console.log(result)
-                        alert('something is error')
-                    }
-                });
+                // $.ajax({
+                //     type: "POST",
+                //     url: "/register-passkey-credential",
+                //     data: {
+                //         credential_id : newCredential.id,
+                //         attestation_object : newCredential.response.attestationObject,
+                //         clientdata_json : newCredential.response.clientDataJSON,
+                //     },
+                //     success: function(result) {
+                //         console.log(result);
+                //         alert("success");
+                //     },
+                //     error: function(result) {
+                //         console.log(result)
+                //         alert('something is error')
+                //     }
+                // });
             },
             error: function(result) {
                 console.log(result)
