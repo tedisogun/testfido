@@ -24,10 +24,13 @@ class PasskeyController extends Controller
     public function getSSOLoginPage(Request $req)
     {
         $cookieSession = $req->cookie('castgc');
+
         if($cookieSession ){
-            $cookieSession = Session::where('castgc',$cookieSession )->first();
+            $cookieSession = Session::where('castgc', $cookieSession )->first();
             if( $cookieSession && $cookieSession->status == "active") return redirect('/home');
         }
+
+        return $cookieSession;
 
         //  random bytes binary. 32 bytes = 256bit
         // convert challenge to base64url
@@ -84,7 +87,7 @@ class PasskeyController extends Controller
         $user = User::where('id', $cookieSession->users_id)->first();
 
         return view('passkey/sso_home', [
-           'user' => $user
+           'user' => $user,
         ]);
     }
 
