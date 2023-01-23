@@ -238,11 +238,11 @@
                                 </div>
                             </div>
 
-                            <div id="login_qr"  style="margin-bottom: 2px;" class="row">
+                            <div id="login_passkey"  style="margin-bottom: 2px;" class="row">
                                 <div class="input-field col s12">
 
                                     <button onclick="show_qr()" class=" col s12 waves-effect waves-light gradient-45deg-purple-teal  btn-large  gradient-shadow  z-depth-4">
-                                        <i class="material-icons right">qr_code_2</i> Login Kode QR</button>
+                                        <i class="material-icons right">fingerprint</i>Login Passkey</button>
 
                                 </div>
                             </div>
@@ -371,12 +371,11 @@
     async function showHideFidoLoginButton()
     {
         let platformAuthExist = await checkPlatformAuthAvailable();
-        console.log("hasil check");
-        console.log(platformAuthExist);
+
         if(platformAuthExist){
-            document.getElementById("login_qr").style.display = 'block';
+            document.getElementById("login_passkey").style.display = 'block';
         }else{
-            document.getElementById("login_qr").style.display = 'none';
+            document.getElementById("login_passkey").style.display = 'none';
         }
     }
     showHideFidoLoginButton();
