@@ -173,7 +173,7 @@ class PasskeyController extends Controller
         $clientdata_json = json_decode($clientdata_json);
 
         // check challenge that RP send on register page, if exist on database it mean challenge is valid
-        $is_challenge_exist = PasskeySession::where('challenge', $clientdata_json->challenge)->first();
+        $is_challenge_exist = PasskeySession::where('random_challenge', $clientdata_json->challenge)->first();
         if (!$is_challenge_exist) {
             return response()->json([
                 'status' => 'fail',
