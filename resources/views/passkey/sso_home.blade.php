@@ -749,8 +749,16 @@ max-width: 215px;">
 
     async function getCredential(result)
     {
-         let newCredential = await registerPasskey(result.challenge, result.user, result.credentials );
-        console.log(newCredential)
+         let newCredential;
+
+         try {
+             newCredential = await registerPasskey(result.challenge, result.user, result.credentials);
+         }catch (e) {
+             console.log(e)
+             alert('device ini sudah terdaftar passkey')
+             return
+         }
+         console.log(newCredential)
         //console.log(newCredential)
 
         //'credential_id' is base64url string
