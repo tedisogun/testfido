@@ -275,7 +275,7 @@
 <center style="margin-top: 15px;"><img src="/login_sso_files/logo-bsre.png" style="width: 100px"></center>
 
 <center>  <b> ... </b> <a href="https://upttik.undiksha.ac.id/helpdesk/faq" target="_blank">FAQ </a>| <a href="https://upttik.undiksha.ac.id/" target="_blank"> <i style="font-size: 16px;" class="material-icons prefix">language</i>
-    </a> - Copyright © document.write(new Date().getFullYear());
+    </a> - Copyright © <script>document.write(new Date().getFullYear());</script>
     </script>2022  <a href="http://undiksha.ac.id/" target="_blank"> Undiksha</a> <b> ... </b> </center>
 
 
