@@ -23,7 +23,7 @@ class PasskeyController extends Controller
 
     public function getSSOLoginPage(Request $req)
     {
-        $cookieSession = $req->cookie('castgc');
+        $cookieSession = $req->cookie->get('castgc');
 
         if($cookieSession ){
             $cookieSession = Session::where('castgc', $cookieSession )->first();
