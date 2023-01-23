@@ -227,11 +227,6 @@
                             <div id="login" style="margin-bottom: 2px;" class="row">
                                 <div class="input-field col s12">
 
-
-                                    <input type="hidden" name="lt" value="LT-4086885-tQJ31dy5qpl2wfRWMIs0Eb3coppoAc-sso.undiksha.ac.id">
-                                    <input type="hidden" name="execution" value="e1s1">
-                                    <input type="hidden" name="_eventId" value="submit">
-
                                     <button id="login_password" accesskey="l" tabindex="4" class=" col s12 waves-effect waves-light gradient-45deg-green-teal  btn-large  gradient-shadow  z-depth-4  ">
                                         <i class="material-icons right">lock</i> Login</button>
 
