@@ -119,6 +119,9 @@
                                 <i class="zmdi zmdi-account-circle"></i> <span>Profil</span>
                             </a>
 
+                            <a id="register-passkey" href="https://upttik.undiksha.ac.id/media/download/" target="_blank" class="dropdown-item notify-item">
+                                <i class="material-icons right">fingerprint</i><span>Register Passkey</span>
+                            </a>
 
                             <a href="https://upttik.undiksha.ac.id/media/download/" target="_blank" class="dropdown-item notify-item">
                                 <i class="zmdi zmdi-help"></i> <span>PANDUAN PENGGUNAAN</span>
