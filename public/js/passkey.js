@@ -57,6 +57,7 @@ async function login(randomChallenge, userID){
 
 
 
+
 function base64url_encode(buffer) {
     return btoa(Array.from(new Uint8Array(buffer), b => String.fromCharCode(b)).join(''))
         .replace(/\+/g, '-')
