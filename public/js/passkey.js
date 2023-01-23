@@ -71,13 +71,14 @@ async function loginPasskey(randomChallenge){
         challenge: randomChallengeBuffer,
         rpId : 'testfido.com',
 
+
     };
 
     const credential = await navigator.credentials.get({
         publicKey: publicKeyCredentialRequestOptions
     });
 
-    console.log(credential);
+    return credential;
 
 // Encode and send the credential to the server for verification.
 }

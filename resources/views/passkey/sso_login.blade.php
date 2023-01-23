@@ -228,7 +228,7 @@
                             <div id="login_passkey"  style="margin-bottom: 2px;" class="row">
                                 <div class="input-field col s12">
 
-                                    <button onclick="loginPasskey('{{$challenge}}')" class=" col s12 waves-effect waves-light  btn-large  gradient-shadow  z-depth-4" style="background: linear-gradient(45deg,#48b7f5 0%, #157bef 100%);">
+                                    <button id="buttonpasskey" class=" col s12 waves-effect waves-light  btn-large  gradient-shadow  z-depth-4" style="background: linear-gradient(45deg,#48b7f5 0%, #157bef 100%);">
                                         <i class="material-icons right">fingerprint</i>Login Passkey</button>
 
                                 </div>
@@ -385,6 +385,42 @@
         }
     }
     showHideFidoLoginButton();
+
+
+    $("#buttonpasskey").click(
+        function(event) {
+            event.preventDefault();
+            login({{$challenge}});
+        }
+    );
+
+    async function login(challenge){
+        let credential = await loginPasskey(challenge);
+        console.log(credential)
+
+        $.ajax({
+            type: "POST",
+            url: "/login-passkey",
+            data: {
+                credential_id : credential.id,
+                authenticator_object : base64url_encode(credential.response.authenticatorData),
+                clientdata_json : base64url_encode(credential.response.clientDataJSON),
+                signature : base64url_encode(credential.response.signature),
+            },
+            success: function(result) {
+                console.log(result);
+                alert("success");
+
+            },
+            error: function(result) {
+                console.log(result)
+                alert('something is error')
+            }
+        });
+
+    }
+
+
 </script>
 
 </body></html>

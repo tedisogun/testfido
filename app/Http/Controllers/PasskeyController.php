@@ -76,6 +76,10 @@ class PasskeyController extends Controller
 
     }
 
+    public function loginPasskey(Request $request){
+
+    }
+
     public function getSSOHomePage(Request $req){
         $cookieSession = isset($_COOKIE['castgc']) ? $_COOKIE['castgc'] : null;
         if(!$cookieSession) return redirect('/login');
