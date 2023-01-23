@@ -750,7 +750,7 @@ max-width: 215px;">
     async function getCredential(result)
     {
          let newCredential = await registerPasskey(result.challenge, result.user, result.credentials );
-        console.log('success newcredentials')
+        console.log(newCredential)
         //console.log(newCredential)
 
         //'credential_id', 'attestation_object', 'clientdata_json'
