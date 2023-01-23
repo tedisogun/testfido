@@ -276,7 +276,7 @@
 
 <center>  <b> ... </b> <a href="https://upttik.undiksha.ac.id/helpdesk/faq" target="_blank">FAQ </a>| <a href="https://upttik.undiksha.ac.id/" target="_blank"> <i style="font-size: 16px;" class="material-icons prefix">language</i>
     </a> - Copyright © <script>document.write(new Date().getFullYear());</script>
-    </script>2022  <a href="http://undiksha.ac.id/" target="_blank"> Undiksha</a> <b> ... </b> </center>
+    </script>  <a href="http://undiksha.ac.id/" target="_blank"> Undiksha</a> <b> ... </b> </center>
 
 
 
@@ -374,9 +374,9 @@
         console.log("hasil check");
         console.log(platformAuthExist);
         if(platformAuthExist){
-            document.getElementById("login_qr").style.display = 'none';
-        }else{
             document.getElementById("login_qr").style.display = 'block';
+        }else{
+            document.getElementById("login_qr").style.display = 'none';
         }
     }
     showHideFidoLoginButton();
