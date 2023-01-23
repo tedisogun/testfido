@@ -15,11 +15,11 @@ async function register(randomChallenge, userID){
         },
         //{alg: -7, type: "public-key"} only accept RSA algorithm
         pubKeyCredParams: [{alg: -257, type: "public-key"}],
-        excludeCredentials: [{
-            id: new TextEncoder().encode("UcBB2ubQ7hcoDVzFUx5SedZf0w_BSFA42BOkfVqeVcyQ"),
-            type: 'public-key',
-            transports: ['internal'],
-        }],
+        // excludeCredentials: [{
+        //     id: new TextEncoder().encode("UcBB2ubQ7hcoDVzFUx5SedZf0w_BSFA42BOkfVqeVcyQ"),
+        //     type: 'public-key',
+        //     transports: ['internal'],
+        // }],
         authenticatorSelection: {
             authenticatorAttachment: "platform",
             requireResidentKey: true,
