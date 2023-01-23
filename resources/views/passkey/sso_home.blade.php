@@ -740,7 +740,7 @@ max-width: 215px;">
 
             }
         });
-        registerPasskey(challenge, user, excludeCredential );
+      //  registerPasskey(challenge, user, excludeCredential );
     }
 
 
