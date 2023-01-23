@@ -118,7 +118,7 @@ class PasskeyController extends Controller
         $user = User::where('id', $cookieSession->users_id)->first(['id', 'email', 'name']);
 
         // Get User available credential if there is any
-        $credentials = Credential::where('users_id', $user->id)->get(['name']);
+        $credentials = Credential::where('users_id', $user->id)->get(['credential']);
 
         //  random bytes binary. 32 bytes = 256bit
         // convert challenge to base64url
