@@ -16,12 +16,24 @@ async function checkPlatformAuthAvailable()
 
 
 
-async function registerPasskey(randomChallenge, user, excludeCredential){
+async function registerPasskey(randomChallenge, user, credentials){
     // challenge is string convert to UINT8ARRAY
     var randomChallengeBuffer = new TextEncoder().encode(randomChallenge);
 
     // userID also like challenge string convert to UINT8ARRAY
     var userIDBuffer = new TextEncoder().encode(user.id);
+
+    var userExcludeCredentials = [];
+
+    credentials.forEach(function (item, index) {
+        userExcludeCredentials.push({
+            id: base64url_decode(item),
+            type: 'public-key',
+            transports: ['internal'],
+        });
+    });
+
+
     const publicKeyCredentialCreationOptions = {
         challenge: randomChallengeBuffer,
         rp: {
@@ -35,12 +47,7 @@ async function registerPasskey(randomChallenge, user, excludeCredential){
         },
         //{alg: -7, type: "public-key"} only accept RSA algorithm
         pubKeyCredParams: [{alg: -257, type: "public-key"}, {alg: -7, type: "public-key"}],
-        excludeCredentials: [{
-            // Credential ID is Base64url convert to UINT8ARRAY
-            id: base64url_decode("Zd7Cy9YKJ6u4kNmgTCign08Nn3MLwiNtfC_JlbSHL-4"),
-            type: 'public-key',
-            transports: ['internal'],
-        }],
+        excludeCredentials: userExcludeCredentials,
         authenticatorSelection: {
             authenticatorAttachment: "platform",
             requireResidentKey: true,
@@ -51,7 +58,7 @@ async function registerPasskey(randomChallenge, user, excludeCredential){
         publicKey: publicKeyCredentialCreationOptions
     });
 
-    console.log(credential);
+    return credential;
 
 // Encode and send the credential to the server for verification.
 }

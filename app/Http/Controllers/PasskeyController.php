@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Helpers\CryptoAuth;
+use App\Models\PublicKey;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Session;
@@ -128,11 +130,94 @@ class PasskeyController extends Controller
         $passkeySession->credentials_users_id = $user->id;
         $passkeySession->save();
 
+        // Unset ID, user dont need to know about this
+        unset($user['id']);
+
         return response()->json([
             'user' => $user,
             'challenge' => $passkeySession->random_challenge,
             'credentials' => $credentials
             ], 200);
+
+    }
+
+    public function registerPasskeyCredential(Request $req)
+    {
+
+        // first check if all 3 value exist
+        if (!$req->has(['credential_id', 'attestation_object', 'clientdata_json']))
+            return response()->json([
+                'status' => 'fail',
+                'message' => "some input is missing"], 403);
+
+        /**
+         * put POST data to variable
+         */
+        // credential_id is in baseu4l text format
+        $credential_id      = $req->credential_id;
+        $clientdata_json    = $req->clientdata_json;
+        $attestation_object = $req->attestation_object;
+
+        // get Cookie, get user
+        $cookieSession = isset($_COOKIE['castgc']) ? $_COOKIE['castgc'] : null;
+        $cookieSession = Session::where('castgc',$cookieSession )->first();
+        $user = User::where('id', $cookieSession->users_id)->first(['id', 'email', 'name']);
+
+        /**
+         * Check clientDataJSON validity
+         *  */
+        // https://chromium.googlesource.com/chromium/src/+/master/content/browser/webauth/client_data_json.md
+        // make new variable collected_client_data to concat data on client_data_json
+        // decode base64url from client to string
+        $clientdata_json = Base64Url::decode($clientdata_json);
+        $clientdata_json = json_decode($clientdata_json);
+
+        // check challenge that RP send on register page, if exist on database it mean challenge is valid
+        $is_challenge_exist = PasskeySession::where('challenge', $clientdata_json->challenge)->first();
+        if (!$is_challenge_exist) {
+            return response()->json([
+                'status' => 'fail',
+                'message' => "challenge is not exist on database"
+            ], 403);
+        } else {
+            // now time is greater than timeout time challenge, it mean challenge has been expired
+            if (time() > strtotime($is_challenge_exist->timeout)) {
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => "challenge expired"
+                ], 403);
+            }
+        }
+
+        // Get Authdata
+        $attestation_auth_data = CryptoAuth::parseAuthData($attestation_object);
+
+        $newPublicKey = new PublicKey;
+        $newPublicKey->type = $attestation_auth_data['COSEPublicKey']['type'];
+        $newPublicKey->type_scheme = $attestation_auth_data['COSEPublicKey']['scheme'];
+        $newPublicKey->hash_name = $attestation_auth_data['COSEPublicKey']['hash'];
+        $newPublicKey->key = $attestation_auth_data['COSEPublicKey']['key'];
+        $newPublicKey->counter = $attestation_auth_data['counter'];
+        $newPublicKey->save();
+
+
+
+        // Save data to database
+        $newCredential = new Credential;
+        $newCredential->credential = $credential_id;
+        $newCredential->device_type = "tes-device-xxx";
+        $newCredential->created_at = Carbon::now();;
+        $newCredential->users_id = $user->id;
+        $newCredential->public_key_id = $newPublicKey->id;
+        $newCredential->save();
+
+
+
+        return response()->json([
+            "message" => "Success tedisogun from server",
+            "newCredential" => $newCredential,
+            "publickey" => $newPublicKey
+        ], 200);
 
     }
 

@@ -36,6 +36,7 @@ Route::post('/login-passkey', [PasskeyController::class, 'loginPasskey']);
 Route::get('/logout', [PasskeyController::class, 'logout']);
 Route::get('/home', [PasskeyController::class, 'getSSOHomePage']);
 Route::get('/register-passkey-data', [PasskeyController::class, 'registerPasskeyData']);
+Route::post('/register-passkey-credential', [PasskeyController::class, 'registerPasskeyCredential']);
 
 
 

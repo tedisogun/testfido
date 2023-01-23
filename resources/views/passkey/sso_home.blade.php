@@ -731,8 +731,30 @@ max-width: 215px;">
         $.ajax({
             type: "GET",
             url: "/register-passkey-data",
-            success: function(result) {
+            success: async function(result) {
                 console.log(result)
+                // call webauthn to assign credential to user device
+                let newCredential = await registerPasskey(result.challenge, result.user, result.credentials );
+
+                //new credential from webauthn will be sent to the server
+                //'credential_id', 'attestation_object', 'clientdata_json'
+                $.ajax({
+                    type: "POST",
+                    url: "/register-passkey-credential",
+                    data: {
+                        credential_id : newCredential.id,
+                        attestation_object : newCredential.response.attestationObject,
+                        clientdata_json : newCredential.response.clientDataJSON,
+                    },
+                    success: function(result) {
+                        console.log(result);
+                        alert("success");
+                    },
+                    error: function(result) {
+                        console.log(result)
+                        alert('something is error')
+                    }
+                });
             },
             error: function(result) {
                 console.log(result)
@@ -740,7 +762,7 @@ max-width: 215px;">
 
             }
         });
-      //  registerPasskey(challenge, user, excludeCredential );
+
     }
 
 
