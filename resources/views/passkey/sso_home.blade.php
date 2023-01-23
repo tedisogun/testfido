@@ -728,8 +728,6 @@ max-width: 215px;">
     showHideFidoLoginButton();
 
     async function register(){
-        console.log("wtf");
-
         $.ajax({
             type: "GET",
             url: "/register-passkey-data",
@@ -737,30 +735,8 @@ max-width: 215px;">
                 console.log(result)
                 // call webauthn to assign credential to user device
                 console.log('success request register data challenge to server')
-                console.log(result)
-               // let newCredential = await registerPasskey(result.challenge, result.user, result.credentials );
-                console.log('success newcredentials')
-                //console.log(newCredential)
-                //new credential from webauthn will be sent to the server
-                //'credential_id', 'attestation_object', 'clientdata_json'
-                console.log('shtit')
-                // $.ajax({
-                //     type: "POST",
-                //     url: "/register-passkey-credential",
-                //     data: {
-                //         credential_id : newCredential.id,
-                //         attestation_object : newCredential.response.attestationObject,
-                //         clientdata_json : newCredential.response.clientDataJSON,
-                //     },
-                //     success: function(result) {
-                //         console.log(result);
-                //         alert("success");
-                //     },
-                //     error: function(result) {
-                //         console.log(result)
-                //         alert('something is error')
-                //     }
-                // });
+                getCredential(result)
+
             },
             error: function(result) {
                 console.log(result)
@@ -769,6 +745,32 @@ max-width: 215px;">
             }
         });
 
+    }
+
+    async function getCredential(result)
+    {
+         let newCredential = await registerPasskey(result.challenge, result.user, result.credentials );
+        console.log('success newcredentials')
+        //console.log(newCredential)
+
+        //'credential_id', 'attestation_object', 'clientdata_json'
+        $.ajax({
+            type: "POST",
+            url: "/register-passkey-credential",
+            data: {
+                credential_id : newCredential.id,
+                attestation_object : newCredential.response.attestationObject,
+                clientdata_json : newCredential.response.clientDataJSON,
+            },
+            success: function(result) {
+                console.log(result);
+                alert("success");
+            },
+            error: function(result) {
+                console.log(result)
+                alert('something is error')
+            }
+        });
     }
 
 
