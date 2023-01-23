@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Session;
 use App\Models\PasskeySession;
+use App\Models\Credential;
 use Base64Url\Base64Url;
 use Carbon\Carbon;
 
@@ -99,6 +100,40 @@ class PasskeyController extends Controller
         $cookieSession->status = "expired";
         $cookieSession->save();
         return redirect('/login');
+    }
+
+    public function registerPasskeyData()
+    {
+        $cookieSession = isset($_COOKIE['castgc']) ? $_COOKIE['castgc'] : null;
+
+        if(!$cookieSession) return response()->json(['message' => 'Fail, No Cookie'], 403);
+
+        $cookieSession = Session::where('castgc',$cookieSession )->first();
+
+        if(!$cookieSession) return response()->json(['message' => 'Fail, Invalid Cookie'], 403);
+
+        if($cookieSession->status == "expired") return response()->json(['message' => 'Fail, Cookie Expired'], 403);
+
+        // Get user data that want to register passkey
+        $user = User::where('id', $cookieSession->users_id)->first(['id', 'email', 'name']);
+
+        // Get User available credential if there is any
+        $credentials = Credential::where('users_id', $user->id)->get(['name']);
+
+        //  random bytes binary. 32 bytes = 256bit
+        // convert challenge to base64url
+        $passkeySession = new PasskeySession;
+        $passkeySession->random_challenge = Base64Url::encode(random_bytes(32));
+        $passkeySession->timeout = now()->addMinutes(60) ;
+        $passkeySession->credentials_users_id = $user->id;
+        $passkeySession->save();
+
+        return response()->json([
+            'user' => $user,
+            'challenge' => $passkeySession->random_challenge,
+            'credentials' => $credentials
+            ], 200);
+
     }
 
 }

@@ -16,22 +16,22 @@ async function checkPlatformAuthAvailable()
 
 
 
-async function registerPasskey(randomChallenge, userID, excludeCredential){
+async function registerPasskey(randomChallenge, user, excludeCredential){
     // challenge is string convert to UINT8ARRAY
     var randomChallengeBuffer = new TextEncoder().encode(randomChallenge);
 
     // userID also like challenge string convert to UINT8ARRAY
-    var userIDBuffer = new TextEncoder().encode(userID);
+    var userIDBuffer = new TextEncoder().encode(user.id);
     const publicKeyCredentialCreationOptions = {
         challenge: randomChallengeBuffer,
         rp: {
-            name: "Test Fido Passkey",
+            name: "Undiksha Test Passkey",
             id: "testfido.com",
         },
         user: {
             id: userIDBuffer,
-            name: "tedi",
-            displayName: "sogun",
+            name: user.name,
+            displayName: user.name,
         },
         //{alg: -7, type: "public-key"} only accept RSA algorithm
         pubKeyCredParams: [{alg: -257, type: "public-key"}, {alg: -7, type: "public-key"}],

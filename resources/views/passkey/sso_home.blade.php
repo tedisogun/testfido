@@ -119,7 +119,7 @@
                                 <i class="zmdi zmdi-account-circle"></i> <span>Profil</span>
                             </a>
 
-                            <a id="register-passkey" href="https://upttik.undiksha.ac.id/media/download/" target="_blank" class="dropdown-item notify-item">
+                            <a id="register-passkey"  href="https://upttik.undiksha.ac.id/media/download/" target="_blank" class="dropdown-item notify-item">
                                 <i class="zmdi zmdi-smartphone-lock"></i> <span>Register Passkey</span>
                             </a>
 
@@ -711,4 +711,40 @@ max-width: 215px;">
 <script src="/welcome_sso_files/jquery.core.js"></script>
 <script src="/welcome_sso_files/jquery.app.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js" integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="/js/passkey.js"></script>
+
+<script>
+    async function showHideFidoLoginButton()
+    {
+        let platformAuthExist = await checkPlatformAuthAvailable();
+
+        if(platformAuthExist){
+            document.getElementById("register-passkey").style.display = 'block';
+        }else{
+            document.getElementById("register-passkey").style.display = 'none';
+        }
+    }
+    showHideFidoLoginButton();
+
+    async function register(){
+        $.ajax({
+            type: "GET",
+            url: "/register-passkey-data",
+            success: function(result) {
+                console.log(result)
+            },
+            error: function(result) {
+                console.log(result)
+                alert('something is error')
+
+            }
+        });
+        registerPasskey(challenge, user, excludeCredential );
+    }
+
+
+    $('#register-passkey').click(function(){ register(); return false; });
+
+</script>
 </body></html>
