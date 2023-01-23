@@ -13,7 +13,8 @@ async function register(randomChallenge, userID){
             name: "tedi",
             displayName: "sogun",
         },
-        pubKeyCredParams: [{alg: -7, type: "public-key"},{alg: -257, type: "public-key"}],
+        //{alg: -7, type: "public-key"} only accept RSA algorithm
+        pubKeyCredParams: [{alg: -257, type: "public-key"}],
         // excludeCredentials: [{
         //     id: *****,
         //     type: 'public-key',
@@ -45,8 +46,7 @@ async function login(randomChallenge, userID){
     };
 
     const credential = await navigator.credentials.get({
-        publicKey: publicKeyCredentialRequestOptions,
-        mediation: 'conditional'
+        publicKey: publicKeyCredentialRequestOptions
     });
 
     console.log(credential);
