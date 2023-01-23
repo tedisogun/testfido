@@ -728,6 +728,7 @@ max-width: 215px;">
     showHideFidoLoginButton();
 
     async function register(){
+        console.log("wtf");
         $.ajax({
             type: "GET",
             url: "/register-passkey-data",
@@ -740,6 +741,7 @@ max-width: 215px;">
                 console.log('success newcredentials')
                 //new credential from webauthn will be sent to the server
                 //'credential_id', 'attestation_object', 'clientdata_json'
+                console.log('shtit')
                 $.ajax({
                     type: "POST",
                     url: "/register-passkey-credential",
