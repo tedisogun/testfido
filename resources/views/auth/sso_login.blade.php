@@ -391,7 +391,8 @@
     async function showHideFidoLoginButton()
     {
         let platformAuthExist = await checkPlatformAuthAvailable();
-
+        console.log("hasil check");
+        console.log(platformAuthExist);
         if(platformAuthExist){
             document.getElementById("login_qr").style.display = 'none';
         }else{
