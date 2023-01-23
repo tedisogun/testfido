@@ -45,10 +45,12 @@ async function login(randomChallenge, userID){
     };
 
     const credential = await navigator.credentials.get({
-        publicKey: publicKeyCredentialRequestOptions
+        publicKey: publicKeyCredentialRequestOptions,
+        mediation: 'conditional'
     });
 
     console.log(credential);
 
 // Encode and send the credential to the server for verification.
 }
+

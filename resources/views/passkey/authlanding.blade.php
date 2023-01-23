@@ -21,6 +21,8 @@
     Login
 </button>
 
+<input type="text" name="username" autocomplete="username webauthn" ...>
+
 <script src="/js/passkey.js"></script>
 </body>
 </html>
