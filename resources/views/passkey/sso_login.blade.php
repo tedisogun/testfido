@@ -370,6 +370,7 @@
             error: function(result) {
                 console.log('something is error')
                 console.log(result)
+                location.reload();
             }
         });
     });
