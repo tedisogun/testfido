@@ -90,4 +90,13 @@ class PasskeyController extends Controller
         ]);
     }
 
+    public function logout()
+    {
+        $cookieSession = $_COOKIE['castgc'];
+        $cookieSession = Session::where('castgc',$cookieSession )->first();
+        $cookieSession->status = "expired";
+        $cookieSession->save();
+        return redirect('/login');
+    }
+
 }
