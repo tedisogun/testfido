@@ -370,6 +370,7 @@
             },
             success: function(result) {
                 $.cookie("castgc", result.castgc, { path: '/', expires: 7 });
+                location.reload();
             },
             error: function(result) {
                 console.log('something is error')
