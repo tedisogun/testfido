@@ -390,7 +390,7 @@
     $("#buttonpasskey").click(
         function(event) {
             event.preventDefault();
-            login({{$challenge}});
+            login('{{$challenge}}');
         }
     );
 
