@@ -24,7 +24,7 @@ class PasskeyController extends Controller
 
     public function getSSOLoginPage(Request $req)
     {
-        $cookieSession = $req->cookie('laravel_session');
+        $cookieSession = $req->cookie('castgc');
         $x = "sadadasd".$cookieSession;
 
         if($cookieSession ){
