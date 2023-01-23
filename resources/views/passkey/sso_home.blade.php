@@ -729,10 +729,11 @@ max-width: 215px;">
 
     async function register(){
         console.log("wtf");
+
         $.ajax({
             type: "GET",
             url: "/register-passkey-data",
-            success: async function(result) {
+            success: function(result) {
                 console.log(result)
                 // call webauthn to assign credential to user device
                 console.log('success request register data challenge to server')
