@@ -7,7 +7,6 @@ use App\Models\Session;
 use App\Models\PasskeySession;
 use Base64Url\Base64Url;
 use Carbon\Carbon;
-use Symfony\Component\HttpFoundation\Cookie;
 
 class PasskeyController extends Controller
 {
@@ -25,7 +24,6 @@ class PasskeyController extends Controller
     public function getSSOLoginPage(Request $req)
     {
         $cookieSession = $_COOKIE['castgc'];
-        return  $cookieSession;
         if($cookieSession ){
             $cookieSession = Session::where('castgc', $cookieSession )->first();
             if( $cookieSession && $cookieSession->status == "active") return redirect('/home');
@@ -76,7 +74,7 @@ class PasskeyController extends Controller
     }
 
     public function getSSOHomePage(Request $req){
-        $cookieSession = $req->cookie('castgc');
+        $cookieSession = $_COOKIE['castgc'];
         if(!$cookieSession) return redirect('/login');
 
         $cookieSession = Session::where('castgc',$cookieSession )->first();
