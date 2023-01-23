@@ -734,8 +734,10 @@ max-width: 215px;">
             success: async function(result) {
                 console.log(result)
                 // call webauthn to assign credential to user device
+                console.log('success request register data challenge to server')
+                console.log(result)
                 let newCredential = await registerPasskey(result.challenge, result.user, result.credentials );
-
+                console.log('success newcredentials')
                 //new credential from webauthn will be sent to the server
                 //'credential_id', 'attestation_object', 'clientdata_json'
                 $.ajax({
