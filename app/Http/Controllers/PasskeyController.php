@@ -29,13 +29,13 @@ class PasskeyController extends Controller
         $random_challenge = Base64Url::encode(random_bytes(32));
 
         // Save random to database
-        $random = new PasskeySession;
-        $random->challenge = $random_challenge;
-        $random->timeout = now()->addMinutes(60) ;
-        $random->save();
+        $passkey = new PasskeySession;
+        $passkey->random_challenge = $random_challenge;
+        $passkey->timeout = now()->addMinutes(60) ;
+        $passkey->save();
 
         return view('passkey/sso_login', [
-            'challenge' => $random->challenge
+            'challenge' => $passkey->random_challenge
         ]);
     }
 
