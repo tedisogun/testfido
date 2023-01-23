@@ -737,9 +737,9 @@ max-width: 215px;">
                 // call webauthn to assign credential to user device
                 console.log('success request register data challenge to server')
                 console.log(result)
-                let newCredential = await registerPasskey(result.challenge, result.user, result.credentials );
+               // let newCredential = await registerPasskey(result.challenge, result.user, result.credentials );
                 console.log('success newcredentials')
-                console.log(newCredential)
+                //console.log(newCredential)
                 //new credential from webauthn will be sent to the server
                 //'credential_id', 'attestation_object', 'clientdata_json'
                 console.log('shtit')
