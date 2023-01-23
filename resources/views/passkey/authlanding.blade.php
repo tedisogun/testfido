@@ -37,11 +37,11 @@
             publicKey: {
                 challenge: randomChallengeBuffer,
                 // `allowCredentials` can be used as a filter on top of discoverable credentials.
-            }
+            }});
     }
 
 
-    });
+
 </script>
 <script src="/js/passkey.js"></script>
 </body>
