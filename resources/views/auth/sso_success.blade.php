@@ -67,72 +67,7 @@
 
     </style>
 
-    <link rel="manifest" href="https://sso.undiksha.ac.id/manifest.json">
     <script src="/welcome_sso_files/OneSignalSDK.js" async=""></script>
-    <script>
-        var OneSignal = window.OneSignal || [];
-        OneSignal.push(function() {
-            OneSignal.init({
-                appId: "bc1353c3-1948-4b1b-8352-57ba1dfc3837",
-                autoRegister: false,
-                notifyButton: {
-                    enable: false, /* Required to use the Subscription Bell */
-                    size: 'medium', /* One of 'small', 'medium', or 'large' */
-                    theme: 'default', /* One of 'default' (red-white) or 'inverse" (white-red) */
-                    position: 'bottom-right', /* Either 'bottom-left' or 'bottom-right' */
-                    prenotify: true, /* Show an icon with 1 unread message for first-time site visitors */
-                    showCredit: false, /* Hide the OneSignal logo */
-                    text: {
-                        'tip.state.unsubscribed': 'Aktivasi Notifikasi Web',
-                        'tip.state.subscribed': "Anda Sudah Melakukan Aktivasi Notifikasi Web",
-                        'tip.state.blocked': "Anda memblok Notifikasi Web",
-                        'message.prenotify': 'Klik Untuk Aktivasi Notifikasi Web',
-                        'message.action.subscribed': "Terima Kasih Sudah Melakukan Aktivas",
-                        'message.action.resubscribed': "Anda Sudah Melakukan Aktivasi Notifikasi Web",
-                        'message.action.unsubscribed': "Anda Tidak Akan Mendapatkan Notifikasi Web",
-                        'dialog.main.title': 'Notifikasi Web',
-                        'dialog.main.button.subscribe': 'Aktivasi',
-                        'dialog.main.button.unsubscribe': 'NonAktivasi',
-                        'dialog.blocked.title': 'Unblok Notifikasi',
-                        'dialog.blocked.message': "Silahkan Ikuti Instruksi Untuk Melakukan Aktivasi Notifikasi Web : "
-                    }
-                },
-                welcomeNotification: {
-                    "title": "E-Ganesha",
-                    "message": "Terima Kasih Sudah Aktivasi Notifikasi Web",
-                    // "url": "" /* Leave commented for the notification to not open a window on Chrome and Firefox (on Safari, it opens to your webpage) */
-                },
-                promptOptions: {
-                    /* actionMessage limited to 90 characters */
-                    actionMessage: "Sistem E-Ganesha Ingin Menampilkan Notifikasi Web",
-                    /* acceptButtonText limited to 15 characters */
-                    acceptButtonText: "ALLOW",
-                    /* cancelButtonText limited to 15 characters */
-                    cancelButtonText: "NO"
-                }
-            });
-            OneSignal.push(function() {
-                OneSignal.showHttpPrompt({force: true});
-            });
-            OneSignal.push(["setSubscription", true]);
-            OneSignal.push(["getNotificationPermission", function(permission) {
-                console.log("Site Notification Permission:", permission);
-                // (Output) Site Notification Permission: default
-            }]);
-            OneSignal.setDefaultNotificationUrl("https://sso.undiksha.ac.id/home/");
-            // OneSignal.setEmail("ipututedisogun04@undiksha.ac.id");
-            OneSignal.sendTags({email: 'ipututedisogun04@undiksha.ac.id'});
-            OneSignal.getUserId(function(userId) {
-                console.log("Web User ID:", userId);
-                // (Output) OneSignal User ID: 270a35cd-4dda-4b3f-b04e-41d7463a2316
-            });
-
-        });
-
-    </script>
-    <script src="/welcome_sso_files/OneSignalPageSDKES6.js" async=""></script><link rel="stylesheet" href="/welcome_sso_files/OneSignalSDKStyles.css"></head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 <body>
 
 <!-- Navigation Bar-->
@@ -769,9 +704,4 @@ max-width: 215px;">
 <!-- App js -->
 <script src="/welcome_sso_files/jquery.core.js"></script>
 <script src="/welcome_sso_files/jquery.app.js"></script>
-
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js" integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body></html>
