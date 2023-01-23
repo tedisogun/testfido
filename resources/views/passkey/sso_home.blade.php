@@ -584,7 +584,7 @@ max-width: 215px;">
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 form-control-label">Username</label>
                                     <div class="col-sm-9">
-                                        <input readonly="" class="form-control" id="email_undiksha" value="{{$user_email}}" type="text">
+                                        <input readonly="" class="form-control" id="email_undiksha" value="{{$user->email}}" type="text">
                                     </div>
                                 </div>
 
