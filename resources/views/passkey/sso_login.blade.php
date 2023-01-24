@@ -415,7 +415,7 @@
             },
             error: function(result) {
                 console.log(result)
-                alert('something is error')
+                alert(result.status)
             }
         });
 

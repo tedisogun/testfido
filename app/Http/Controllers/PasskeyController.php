@@ -78,7 +78,7 @@ class PasskeyController extends Controller
 
     public function loginPasskey(Request $req){
         if(! $req->has(['credential_id', 'clientdata_json', 'authenticator_object', 'signature']) ) return response()->json([
-            'status' => 'fail',
+            'status' => 'Post Parameter not Enough',
             'message' => "Not Enough Parameter data"
         ], 403);
 
@@ -104,7 +104,7 @@ class PasskeyController extends Controller
         if(! $isSignatureValid)
         {
             return response()->json([
-                'status' => 'Fail',
+                'status' => 'Signature Invalid',
                 'message' => "Signature is Invalid"
             ], 403);
         }
@@ -224,7 +224,7 @@ class PasskeyController extends Controller
         // first check if all 3 value exist
         if (!$req->has(['credential_id', 'attestation_object', 'clientdata_json']))
             return response()->json([
-                'status' => 'fail',
+                'status' => 'Post parameter not enoguh, input missing',
                 'message' => "some input is missing"], 403);
 
         /**
@@ -253,14 +253,14 @@ class PasskeyController extends Controller
         $is_challenge_exist = PasskeySession::where('random_challenge', Base64Url::decode($clientdata_json->challenge))->first();
         if (!$is_challenge_exist) {
             return response()->json([
-                'status' => 'fail',
+                'status' => 'challenge is Invalid',
                 'message' => "challenge is not exist on database"
             ], 403);
         } else {
             // now time is greater than timeout time challenge, it mean challenge has been expired
             if (time() > strtotime($is_challenge_exist->timeout)) {
                 return response()->json([
-                    'status' => 'fail',
+                    'status' => 'Challenge Expired, Try Again',
                     'message' => "challenge expired"
                 ], 403);
             }
