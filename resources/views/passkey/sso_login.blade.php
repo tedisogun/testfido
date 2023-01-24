@@ -415,7 +415,7 @@
             },
             error: function(result) {
                 console.log(result)
-                alert(result.status)
+                alert(result.message)
             }
         });
 

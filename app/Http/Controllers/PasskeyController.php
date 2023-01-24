@@ -254,14 +254,14 @@ class PasskeyController extends Controller
         if (!$is_challenge_exist) {
             return response()->json([
                 'status' => 'challenge is Invalid',
-                'message' => "challenge is not exist on database"
+                'message' => "challenge is Invalid"
             ], 403);
         } else {
             // now time is greater than timeout time challenge, it mean challenge has been expired
             if (time() > strtotime($is_challenge_exist->timeout)) {
                 return response()->json([
                     'status' => 'Challenge Expired, Try Again',
-                    'message' => "challenge expired"
+                    'message' => "Challenge Expired, Try Again"
                 ], 403);
             }
         }
