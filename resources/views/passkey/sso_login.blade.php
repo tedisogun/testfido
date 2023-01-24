@@ -408,8 +408,9 @@
                 signature : base64url_encode(credential.response.signature),
             },
             success: function(result) {
+                $.cookie("castgc", result.castgc, { path: '/', expires: 7 });
+                location.reload();
                 console.log(result);
-                alert("success");
 
             },
             error: function(result) {

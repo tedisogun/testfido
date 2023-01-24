@@ -76,7 +76,80 @@ class PasskeyController extends Controller
 
     }
 
-    public function loginPasskey(Request $request){
+    public function loginPasskey(Request $req){
+        if(! $req->has(['credential_id', 'clientdata_json', 'authenticator_object', 'signature']) ) return response()->json([
+            'status' => 'fail',
+            'message' => "Not Enough Parameter data"
+        ], 403);
+
+        $credential = Credential::where('credential', $req->credential_id)->first();
+        if(!$credential){
+            return response()->json([
+                'status' => 'credential not exist',
+                'message' => "Credential not exist"
+            ], 403);
+        }
+
+
+
+        // get for counter ++
+        $assertion_obj = CryptoAuth::parseAuthAssertion($req->authenticator_object);
+
+        // Get public key of credential that user use to login
+        $publickey = PublicKey::where('id', $credential->public_key_id)->first();
+        // validate the signature with credential
+        $isSignatureValid = CryptoAuth::verifyAssertion($publickey, $req->clientdata_json, $req->authenticator_object, $req->signature);
+
+        // if signature is invalid
+        if(! $isSignatureValid)
+        {
+            return response()->json([
+                'status' => 'Fail',
+                'message' => "Signature is Invalid"
+            ], 403);
+        }
+
+            // Save counter to public key
+            $publickey->counter = $assertion_obj['counter'];
+            $publickey->save();
+
+            // Save PasskeySession login activity with its data
+            $clientdata_json = json_decode(Base64Url::decode($req->clientdata_json));
+            $passkeySession = PasskeySession::where('random_challenge', Base64Url::decode($clientdata_json->challenge))->first();
+            $passkeySession->clientdata_json_base64url = $req->clientdata_json;
+            $passkeySession->authenticator_obj_base64url = $req->authenticator_object;
+            $passkeySession->signature_base64url = $req->signature;
+            $passkeySession->credentials_id = $credential->id;
+            $passkeySession->credentials_users_id = $credential->users_id;
+            $passkeySession->credentials_public_key_id = $credential->public_key_id;
+            $passkeySession->save();
+
+            // Create new login session for user
+
+        // get the user
+        $user = User::where('id', $credential->users_id)->first();
+        //Create random String for user, make sure it is unique & if not, it will make a new
+
+        do{
+            // while will stop if the session is not yet exist in database;
+            $randomSession = Base64Url::encode(random_bytes(64));
+            $session = Session::where('castgc', $randomSession)->first();
+        }while($session);
+
+
+        $session = new Session;
+        $session->castgc = $randomSession;
+        $session->timeout = Carbon::now()->addDay(2);
+        $session->status = "active";
+        $session->created_at = Carbon::now();
+        $session->users_id = $user->id;
+        $session->save();
+
+        return response()->json([
+            'status' => 'success',
+            'castgc' => $session->castgc,
+        ], 200);
+
 
     }
 
