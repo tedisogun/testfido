@@ -10,6 +10,7 @@ use App\Models\PasskeySession;
 use App\Models\Credential;
 use Base64Url\Base64Url;
 use Carbon\Carbon;
+use Jenssegers\Agent\Agent;
 
 class PasskeyController extends Controller
 {
@@ -278,11 +279,16 @@ class PasskeyController extends Controller
         $newPublicKey->save();
 
 
+        // get user device OS & browser
+        $agent = new Agent();
+        $platform = $agent->platform();
+        $browser = $agent->browser();
+
 
         // Save data to database
         $newCredential = new Credential;
         $newCredential->credential = $credential_id;
-        $newCredential->device_type = "tes-device-xxx";
+        $newCredential->device_type = $platform.$browser;
         $newCredential->created_at = Carbon::now();;
         $newCredential->users_id = $user->id;
         $newCredential->public_key_id = $newPublicKey->id;
