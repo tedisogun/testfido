@@ -288,7 +288,7 @@ class PasskeyController extends Controller
         // Save data to database
         $newCredential = new Credential;
         $newCredential->credential = $credential_id;
-        $newCredential->device_type = $platform.$browser;
+        $newCredential->device_type = $platform.'-'.$browser;
         $newCredential->created_at = Carbon::now();;
         $newCredential->users_id = $user->id;
         $newCredential->public_key_id = $newPublicKey->id;
