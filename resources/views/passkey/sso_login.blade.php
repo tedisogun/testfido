@@ -374,17 +374,17 @@
 <script src="/js/passkey.js"></script>
 
 <script>
-    async function showHideFidoLoginButton()
-    {
-        let platformAuthExist = await checkPlatformAuthAvailable();
-
-        if(platformAuthExist){
-            document.getElementById("login_passkey").style.display = 'block';
-        }else{
-            document.getElementById("login_passkey").style.display = 'none';
-        }
-    }
-    showHideFidoLoginButton();
+    // async function showHideFidoLoginButton()
+    // {
+    //     let platformAuthExist = await checkPlatformAuthAvailable();
+    //
+    //     if(platformAuthExist){
+    //         document.getElementById("login_passkey").style.display = 'block';
+    //     }else{
+    //         document.getElementById("login_passkey").style.display = 'none';
+    //     }
+    // }
+    //showHideFidoLoginButton();
 
 
     $("#buttonpasskey").click(
