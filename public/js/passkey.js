@@ -11,8 +11,9 @@ async function checkPlatformAuthAvailable()
         return false;
     }
 
-
 }
+
+
 
 
 
