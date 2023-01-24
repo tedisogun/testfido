@@ -21,7 +21,8 @@ async function registerPasskey(randomChallenge, user, credentials){
     var randomChallengeBuffer = new TextEncoder().encode(randomChallenge);
 
     // userID also like challenge string convert to UINT8ARRAY
-    var userIDBuffer = new TextEncoder().encode(user.id);
+    // Use email as userId in authenticator
+    var userIDBuffer = new TextEncoder().encode(user.email);
 
     var userExcludeCredentials = [];
 
