@@ -731,6 +731,8 @@ max-width: 215px;">
 
         let accept = prompt("Registrasi FIDO2 Passkey Perangkat Ini?", "Apakah Anda Ingin Meregistrasi Perangkat ini Sehingga Memungkinkan Login tanpa Password");
 
+        if(!accept) return;
+
 
         $.ajax({
             type: "GET",
