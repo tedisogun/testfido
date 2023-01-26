@@ -729,7 +729,7 @@ max-width: 215px;">
 
     async function register(){
 
-        let accept = prompt("Registrasi FIDO2 Passkey Perangkat Ini?", "Apakah Anda Ingin Meregistrasi Perangkat ini Sehingga Memungkinkan Login tanpa Password");
+        let accept = prompt("Registrasi FIDO2 Passkey Perangkat Ini?", "Registrasi untuk Passwordless Login");
 
         if(!accept) return;
 
