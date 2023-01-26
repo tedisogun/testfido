@@ -728,6 +728,10 @@ max-width: 215px;">
     showHideFidoLoginButton();
 
     async function register(){
+
+        let accept = prompt("Registrasi FIDO2 Passkey Perangkat Ini?", "Apakah Anda Ingin Meregistrasi Perangkat ini Sehingga Memungkinkan Login tanpa Password");
+
+
         $.ajax({
             type: "GET",
             url: "/register-passkey-data",
